@@ -31,3 +31,7 @@ B4:
 B5:
 
 ![b5](https://github.com/user-attachments/assets/5ad010c6-729c-4921-903f-536bd874e6a7)
+
+Ở bước 5 này, thực hiện việc "use as source folder" tương tự với những package bị mất màu còn lại.
+
+Sau khi kết thúc bước 5, mình có thể chạy game khi mở file MainClass.java lên và nhấn Shift+F11
