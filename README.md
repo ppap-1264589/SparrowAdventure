@@ -35,3 +35,9 @@ B5:
 Ở bước 5 này, thực hiện việc "use as source folder" tương tự với những package bị mất màu còn lại.
 
 Sau khi kết thúc bước 5, mình có thể chạy game khi mở file MainClass.java lên và nhấn Shift+F11
+
+# Cách chỉnh window của game nếu window bị quá to
+
+Chỉnh lại tham số này về giá trị 1.5f là được:
+
+![Tham so SCALE](https://github.com/user-attachments/assets/74f7e8b1-9376-4e22-a2a3-1f77e9f999e2)
