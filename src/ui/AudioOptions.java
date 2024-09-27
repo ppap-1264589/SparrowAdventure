@@ -25,11 +25,14 @@ public class AudioOptions {
         createVolumeButton();  // Tạo thanh điều chỉnh âm lượng
     }
 
-    // Tạo thanh điều chỉnh âm lượng (volume slider)
+    /* 
+     * Tạo thanh điều chỉnh âm lượng (volume slider) 
+     * vX và vY là vị trí của thanh trên màn hình, được tính toán theo tỉ lệ Game.SCALE
+     */
     private void createVolumeButton() {
-        int vX = (int) (309 * Game.SCALE);  // Vị trí X của thanh điều chỉnh âm lượng
-        int vY = (int) (278 * Game.SCALE);  // Vị trí Y của thanh điều chỉnh âm lượng
-        volumeButton = new VolumeButton(vX, vY, SLIDER_WIDTH, VOLUME_HEIGHT); // Tạo đối tượng VolumeButton
+        int vX = (int) (309 * Game.SCALE);  /* Vị trí X của thanh điều chỉnh âm lượng */
+        int vY = (int) (278 * Game.SCALE);  /* Vị trí Y của thanh điều chỉnh âm lượng */
+        volumeButton = new VolumeButton(vX, vY, SLIDER_WIDTH, VOLUME_HEIGHT); /* Tạo đối tượng VolumeButton với kích thước cố định */
     }
 
     // Tạo các nút bật/tắt nhạc và hiệu ứng âm thanh
