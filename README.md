@@ -1,5 +1,10 @@
+<p align="center">
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&center=true&vCenter=true&random=false&width=450&lines=Sparrow+Adventure" alt="Typing SVG" /></a>
+</p>
+<div align="center">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ppap-1264589/SparrowAdventure?labelColor=7AA2E3&color=97E7E1">
+</div>
 # Đây là phần code bài tập lớn OOP lớp thầy Trần Nhật Hóa
-## Tên game dự kiến: SparrowAdventure
 
 Gốc gác của phần code này lấy từ trang Youtube:
 
