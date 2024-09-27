@@ -3,6 +3,7 @@ package main;
 import java.awt.Graphics;
 
 import entities.Player;
+import levels.LevelManager;
 
 public class Game implements Runnable{
 	private GameWindow gameWindow;
@@ -12,13 +13,53 @@ public class Game implements Runnable{
 	
 	private final int FPS_SET = 120;
 	private final int UPS_SET = 200;
+	/*
+	 UPS: tần suất update logic về vật lý và trạng thái của nhân vật trên một giây
+	 UPS càng nhanh thì nhân vật thay đổi trạng thái càng nhanh, và di chuyển, tương tác
+	 với các vật khác với tốc độ càng nhanh
+	 
+	 FPS: tần suất render frame về hình ảnh và hoạt họa của nhân vật trên một giây
+	 FPS càng nhanh thì game càng mượt
+	 
+	  
+  \UPS		|		      Nhanh            	|   	    Thấp			|
+FPS\--------|-------------------------------|---------------------------|
+Nhanh		|		   logic tốt,			|		nhân vật chạy chậm	|		 
+	 		|		   game mượt			|		game mượt			|
+------------|-------------------------------|---------------------------|	   
+Thấp		|		nhân vật chạy nhanh		|		chạy thì chậm, 		|
+	 		|		game hơi lag			|		game thì lag		|
+*/
 	
 	private Player player;
+	private LevelManager levelManager;
+	
+	//CÁC HẰNG SỐ CHO CÁC TILES
+	public final static int TILES_DEFAULT_SIZE = 32; 
+	public final static float SCALE = 1.5f;
+	public final static int TILES_IN_WIDTH = 26;
+	public final static int TILES_IN_HEIGHT = 14;
+	public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
+	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
+	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
+	//CÁC HẰNG SỐ CHO CÁC TILES
+	
+	//SUBIMAGE SIZE
+	private int SUB_HEIGHT = 64;
+	private int SUB_WIDTH = 40;
+	//SUBIMAGE SIZE
+	
+	/*
+	 Ảnh của level được import gồm 26 ảnh theo chiều rộng, 14 ảnh theo chiều ngang
+	 chúng đều cùng kích thước 32*32
+	 */
 		
 	
 	public Game() {
 		initClasses();
 		gamePanel = new GamePanel(this);
+		//Tại sao lại phải có this ở đây :(
+		
 		gameWindow = new GameWindow(gamePanel);
 		
 		gamePanel.requestFocus();
@@ -28,13 +69,12 @@ public class Game implements Runnable{
 		sẽ không nhận input (?)
 		*/
 		
-		
 		startGameLoop(); //gameloop should be the last after all!		
 	}
 	
-	private void initClasses() {
-		player = new Player(200, 200);
-		
+	private void initClasses(){
+		player = new Player(200, 200, (int)(SUB_HEIGHT * SCALE), (int)(SUB_WIDTH * SCALE));
+		levelManager = new LevelManager(this);
 	}
 
 	private void startGameLoop() {
@@ -44,11 +84,13 @@ public class Game implements Runnable{
 	
 	public void update() {
 		player.update();
+		levelManager.update();
 	}
 	
 	public void render(Graphics g) {
+		levelManager.draw(g);
 		player.render(g);
-	}
+	} //Vẽ background trước, vẽ người sau
 
 	@Override
 	public void run() {
@@ -77,7 +119,7 @@ public class Game implements Runnable{
 			} //updating
 			
 			if (deltaF >= 1) {
-				gamePanel.repaint();
+				gamePanel.repaint(); //repaint được do có extends từ JPanel
 				--deltaF;
 				++frames;
 			} //rendering
@@ -99,6 +141,4 @@ public class Game implements Runnable{
 	public Player getPlayer() {
 		return player;
 	}
-	
-	
 }

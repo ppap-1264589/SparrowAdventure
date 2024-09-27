@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 public class GameWindow {
 	private JFrame jframe;
 	
-	
 	public GameWindow(GamePanel gamePanel) {
 		jframe = new JFrame();
 		
@@ -39,13 +38,11 @@ public class GameWindow {
 			@Override
 			public void windowLostFocus(WindowEvent e) {
 				gamePanel.getGame().windowFocusLost();
-				
 			}
 			
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
 			}
 		} );
 		/*

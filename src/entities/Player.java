@@ -1,15 +1,12 @@
 package entities;
 
 
-import static ultiz.Constants.Directions.*;
-import static ultiz.Constants.PlayerConstants.*;
+import static utilz.Constants.PlayerConstants.*;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
-import javax.imageio.ImageIO;
+import utilz.LoadSave;
 
 public class Player extends Entity{
 	private BufferedImage[][] animations;
@@ -42,8 +39,8 @@ public class Player extends Entity{
 	private float playerSpeed = 2.0f;
 	//MOVING PARAMETERS
 	
-	public Player(float x, float y) {
-		super(x, y);
+	public Player(float x, float y, int width, int height) {
+		super(x, y, width, height);
 		loadAnimations();
 	}
 	
@@ -54,7 +51,7 @@ public class Player extends Entity{
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(animations[playerAction][aniIndex], (int)x, (int)y, SUB_HEIGHT*4, SUB_WIDTH*4, null);
+		g.drawImage(animations[playerAction][aniIndex], (int)x, (int)y, width, height, null);
 		/*
 		Ve ra man hinh subimage tai vi tri toa do (x, y)
 		Kich co cua subimage duoc ve ra la 256*160px
@@ -142,30 +139,18 @@ public class Player extends Entity{
 
 	
 	private void loadAnimations() {
-		InputStream is = getClass().getResourceAsStream("/player_sprites.png") ;
-		
-		try { //Thu doc hinh anh tu resource
-			BufferedImage img = ImageIO.read(is);
-			animations = new BufferedImage[9][6]; //cac hoat anh la ma tran 9*6 nhu trong anh o resource
-			for (int j = 0; j < animations.length; j++) {
-				for (int i = 0; i < animations[j].length; i++) {
-					animations[j][i] = img.getSubimage(i*SUB_HEIGHT, j*SUB_WIDTH, SUB_HEIGHT, SUB_WIDTH);
-					/* cai dat: subimage cua image ban dau duoc import vao bien animation[j][i]
+		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
+		animations = new BufferedImage[9][6]; //cac hoat anh la ma tran 9*6 nhu trong anh o resource
+		for (int j = 0; j < animations.length; j++) {
+			for (int i = 0; i < animations[j].length; i++) {
+				animations[j][i] = img.getSubimage(i*SUB_HEIGHT, j*SUB_WIDTH, SUB_HEIGHT, SUB_WIDTH);
+				/* cai dat: subimage cua image ban dau duoc import vao bien animation[j][i]
 					
-					Lay subimage, vi tri toa do goc (i*64, j*40)
-					Kich co cua subimage trong image la 64*40px
-					 */
-				}
+				Lay subimage, vi tri toa do goc (i*64, j*40)
+				Kich co cua subimage trong image la 64*40px
+				 */
 			}
-		} catch (IOException e) { //Khong doc duoc thi catch
-			e.printStackTrace();
-		} finally { //Du co doc duoc hay khong di chang nua
-			try {
-				is.close(); //Dong InputStream lai
-			} catch (IOException e) { //Khong dong duoc thi bo tay
-				e.printStackTrace();
-			}
-		}		
+		}
 	}
 
 	public boolean isLeft() {

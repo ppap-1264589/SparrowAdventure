@@ -2,8 +2,12 @@ package main;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
-import Inputs.KeyBoardInputs;
-import Inputs.MouseInputs;
+
+import inputs.KeyBoardInputs;
+import inputs.MouseInputs;
+
+import static main.Game.GAME_HEIGHT;
+import static main.Game.GAME_WIDTH;
 
 public class GamePanel extends JPanel{ //hinh anh cua game ben trong Jframe
 	//VERSION
@@ -37,18 +41,12 @@ public class GamePanel extends JPanel{ //hinh anh cua game ben trong Jframe
 	
 
 	private void setPanelSize() {
-		Dimension size = new Dimension(1280, 720);
-		setMinimumSize(size);
+		Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
 		setPreferredSize(size);
-		setMaximumSize(size);
+		// Đặt độ lớn của màn hình game đúng bằng kích cỡ size
+		// Nếu không có hàm này thì window của trò chơi bị thu bé hết cỡ
+		System.out.println("size: " + GAME_WIDTH + " : " + GAME_HEIGHT);
 	}
-	/*
-	 Thực tế, sau khi cài độ lớn màn hình vào khoảng 400px*400px, có một
-	 phần nhỏ ở phần rìa phía trên màn hình chính là thanh ghi tiêu đề
-	 của trò chơi. Hàm setPanelSize có tác dụng hiệu chỉnh lại
-	 sự ngứa mắt đó.
-	 */
-
 		
 	public void updateGame() {
 
@@ -58,7 +56,6 @@ public class GamePanel extends JPanel{ //hinh anh cua game ben trong Jframe
 	public void paintComponent(Graphics g) { 
 		super.paintComponent(g); 
 		//Magic! Can co ham nay de ve duoc hoat anh trong game!
-		
 		game.render(g);
 	}
 	
