@@ -23,20 +23,20 @@ public class GamePanel extends JPanel{ //hinh anh cua game ben trong Jframe
 	//CAC TINH NANG LIEN QUAN DEN GAME
 	
 	public GamePanel(Game game) {
+		//WINDOW SETTINGS
+		setPanelSize();
+		//WINDOW SETTINGS
+		
+		//INIT GAME
+		this.game = game;
+		//INIT GAME
+		
 		//INPUT
 		mouseInputs = new MouseInputs(this); 
 		addKeyListener(new KeyBoardInputs(this)); //nhan dien cac trang thai cua phim bam ban phim
 		addMouseListener(mouseInputs); //nhan dien cac trang thai click
 		addMouseMotionListener(mouseInputs); //nhan dien cac trang thai move, drag cua con chuot
 		//INPUT
-		
-		//INIT GAME
-		this.game = game;
-		//INIT GAME
-		
-		//WINDOW SETTINGS
-		setPanelSize();
-		//WINDOW SETTINGS
 	}
 	
 

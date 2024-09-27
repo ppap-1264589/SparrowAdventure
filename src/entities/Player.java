@@ -2,10 +2,11 @@ package entities;
 
 
 import static utilz.Constants.PlayerConstants.*;
-
+import static utilz.HelpMethods.CanMoveHere;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import main.Game;
 import utilz.LoadSave;
 
 public class Player extends Entity{
@@ -13,12 +14,12 @@ public class Player extends Entity{
 	
 	//HINH ANH
 	private int aniTick, aniIndex;
-	private int aniSpeed = 18;
+	private int aniNum = 25;
 	//HINH ANH
 	
 	//SUBIMAGE SIZE
-	private int SUB_HEIGHT = 64;
-	private int SUB_WIDTH = 40;
+	private int SUB_WIDTH = 64;
+	private int SUB_HEIGHT = 40;
 	//SUBIMAGE SIZE
 	
 	//PLAYER_ACTION
@@ -39,10 +40,41 @@ public class Player extends Entity{
 	private float playerSpeed = 2.0f;
 	//MOVING PARAMETERS
 	
+	//CHECK COLLISION 
+	private int[][] lvlData; 
+	//CHECK COLLISION
+	//(có vẻ) đây là cách dễ nhất để check collision giữa một nhân vật và map
+	
+	//HITBOX START POSITION
+	private float xDrawOffset = 21 * Game.SCALE;
+	private float yDrawOffset = 4 * Game.SCALE;
+	//HITBOX START POSITION
+	
+	/*Giải thích:
+	 * SUB_WIDTH = 64 và SUB_HEIGHT = 40
+	 * giờ để đảm bảo các collision của nhân vật chỉ xảy trên biên hitbox của nhân vật
+	 * thì mình cần tạo một hitbox có độ lớn khoảng 20*28, chứa đúng hoạt ảnh "hữu dụng" của nhân vật
+	 * 
+	 * Khi đó phần bị dư ra, nằm giữa biên bên trên của hitbox và biên bên trên của subimage nhân vật
+	 * vào khoảng 4px
+	 * Tương tự, phần bị dư ra nằm giữa bên bên trái của hitbox và biên trái của subimage nhân vật
+	 * vào khoảng 21px
+	 * 
+	 * Phần bị dư ra này gọi là offset
+	 */
+	
 	public Player(float x, float y, int width, int height) {
 		super(x, y, width, height);
 		loadAnimations();
+		initHitbox(x, y, 20 * Game.SCALE, 28 * Game.SCALE);
 	}
+	/*
+	 * Tư tưởng bây giờ, đó là vị trí (x, y) của nhân vật 
+	 * thực ra chính là vị trí ở góc(trái, trên) của hitbox nhân vật
+	 * 
+	 * Ta làm việc này để tiện thao tác với các biến của hitbox, giúp check collision thuận tiện hơn
+	 */
+	
 	
 	public void update() {
 		updatePos();
@@ -51,16 +83,30 @@ public class Player extends Entity{
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(animations[playerAction][aniIndex], (int)x, (int)y, width, height, null);
+		g.drawImage(animations[playerAction][aniIndex], (int)(hitBox.x - xDrawOffset), (int)(hitBox.y - yDrawOffset), width, height, null);
 		/*
-		Ve ra man hinh subimage tai vi tri toa do (x, y)
-		Kich co cua subimage duoc ve ra la 256*160px
+		 Bước 1: vẽ hoạt ảnh nhân vật
+		 Ta cần xác định vị trí bắt đầu vẽ hoạt ảnh từ trị ví của hitbox
+		 
+		 Như trên! 
+		 hitbox.x - xdrawoffset là vị trí x đầu tiên để vẽ hoạt ảnh
+		 hitbox.y - ydrawoffset là vị trí y đầu tiên để vẽ hoạt ảnh
+		 độ lớn của hoạt ảnh này là (width, height)
+		 đương nhiên, width và height ở đây tương ứng là SUB_WIDTH * SCALE và SUB_HEIGHT * SCALE được truyền vào thông qua constructor
+		 */
+		
+//		System.out.println((int)(hitBox.x - xDrawOffset) + " " + (int)(hitBox.y - yDrawOffset) + " " + hitBox.x + " " + hitBox.y);
+		
+		drawHitbox(g);
+		/*
+		 * Bước 2: vẽ hitbox để debug
+		 * (hitbox.x, hitbox.y) ở chỗ nào thì vẽ hitbox debug ở chỗ đó (easy) 
 		 */
 	}
 
 	private void updateAnimationTick() {
 		++aniTick;
-		if (aniTick >= aniSpeed) {
+		if (aniTick >= aniNum) {
 			aniTick = 0;
 			++aniIndex;
 			if (aniIndex >= GetSpriteAmount(playerAction)) {
@@ -112,38 +158,36 @@ public class Player extends Entity{
 	private void updatePos() { //di chuyen theo huong
 		moving = false;
 		
-		if (left && !right) {
-			x -= playerSpeed;
-			moving = true;
-		}
-		else if (right && !left) {
-			x += playerSpeed;
-			moving = true;
-		}
+		if (!left && !right && !up && !down) return;
 		
-		if (up && !down) {
-			y -= playerSpeed;
-			moving = true;
-		}
-		else if (down && !up) {
-			y += playerSpeed;
+		float xSpeed = 0;
+		float ySpeed = 0;
+		
+		if (left && !right)	xSpeed = -playerSpeed;
+		else if (right && !left) xSpeed = playerSpeed;
+		
+		if (up && !down) ySpeed = -playerSpeed;
+		else if (down && !up) ySpeed = playerSpeed;
+		
+		/*
+		 Với cài đặt này, nhân vật thậm chí có thể di chuyển
+		 theo đường chéo, vì left và up có thể được nhận bằng true
+		 cùng một lúc qua hàm keyPressed ở KeyBoardInputs.java
+		 */
+				
+		if (CanMoveHere(hitBox.x + xSpeed, hitBox.y + ySpeed, hitBox.width, hitBox.height, lvlData)) {
+			hitBox.x += xSpeed;
+			hitBox.y += ySpeed;
 			moving = true;
 		}
 	} 
-	/*
-	 Với cài đặt này, nhân vật thậm chí có thể di chuyển
-	 theo đường chéo, vì left và up có thể được nhận bằng true
-	 cùng một lúc qua hàm keyPressed ở KeyBoardInputs.java
-	 */
-	
-
 	
 	private void loadAnimations() {
 		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 		animations = new BufferedImage[9][6]; //cac hoat anh la ma tran 9*6 nhu trong anh o resource
 		for (int j = 0; j < animations.length; j++) {
 			for (int i = 0; i < animations[j].length; i++) {
-				animations[j][i] = img.getSubimage(i*SUB_HEIGHT, j*SUB_WIDTH, SUB_HEIGHT, SUB_WIDTH);
+				animations[j][i] = img.getSubimage(i*SUB_WIDTH, j*SUB_HEIGHT, SUB_WIDTH, SUB_HEIGHT);
 				/* cai dat: subimage cua image ban dau duoc import vao bien animation[j][i]
 					
 				Lay subimage, vi tri toa do goc (i*64, j*40)
@@ -151,6 +195,10 @@ public class Player extends Entity{
 				 */
 			}
 		}
+	}
+	
+	public void loadLvlData(int[][] lvlData) {
+		this.lvlData = lvlData;
 	}
 
 	public boolean isLeft() {
@@ -192,10 +240,4 @@ public class Player extends Entity{
 	public void setAttack(boolean attacking) {
 		this.attacking = attacking;		
 	}
-	/*
-	 chứ không phải là moving = false
-	 vì moving = false rồi thì up, hoặc left, right, down
-	 vẫn có thể là true, chúng lại gán moving = true lần nữa trong
-	 updatePos()
-	 */
 }

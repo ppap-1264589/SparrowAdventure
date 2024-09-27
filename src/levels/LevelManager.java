@@ -9,7 +9,7 @@ import utilz.LoadSave;
 public class LevelManager {
 //	private Game game;
 	private BufferedImage[] levelSprite;
-	private Level levelOne;
+	private Level levelOne; //Sau này, biến này sẽ trở thành một mảng chứa các level;
 	
 	public LevelManager(Game game) {
 //		this.game = game;
@@ -44,5 +44,9 @@ public class LevelManager {
 	
 	public void update() {
 		
+	}
+	
+	public Level getCurrentLevel() {
+		return levelOne;
 	}
 }

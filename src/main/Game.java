@@ -45,8 +45,8 @@ Thấp		|		nhân vật chạy nhanh		|		chạy thì chậm, 		|
 	//CÁC HẰNG SỐ CHO CÁC TILES
 	
 	//SUBIMAGE SIZE
-	private int SUB_HEIGHT = 64;
-	private int SUB_WIDTH = 40;
+	private int SUB_WIDTH = 64;
+	private int SUB_HEIGHT = 40;
 	//SUBIMAGE SIZE
 	
 	/*
@@ -69,12 +69,13 @@ Thấp		|		nhân vật chạy nhanh		|		chạy thì chậm, 		|
 		sẽ không nhận input (?)
 		*/
 		
-		startGameLoop(); //gameloop should be the last after all!		
+		startGameLoop(); //gameloop should be the last after all!
 	}
 	
 	private void initClasses(){
-		player = new Player(200, 200, (int)(SUB_HEIGHT * SCALE), (int)(SUB_WIDTH * SCALE));
 		levelManager = new LevelManager(this);
+		player = new Player(200, 200, (int)(SUB_WIDTH * SCALE), (int)(SUB_HEIGHT * SCALE));
+		player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
 	}
 
 	private void startGameLoop() {
