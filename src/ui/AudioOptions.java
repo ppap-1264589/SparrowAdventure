@@ -11,7 +11,7 @@ import main.Game;
 
 public class AudioOptions {
 
-    // Các nút điều chỉnh âm lượng và âm thanh (nhạc và hiệu ứng âm thanh)
+    //  Nút điều chỉnh âm lượng và âm thanh (nhạc và hiệu ứng âm thanh) ~
     private VolumeButton volumeButton;
     private SoundButton musicButton, sfxButton;
 
@@ -75,10 +75,12 @@ public class AudioOptions {
     public void mousePressed(MouseEvent e) {
         // Kiểm tra xem chuột có nhấn vào nút nhạc không
         if (isIn(e, musicButton))
-            musicButton.setMousePressed(true);  // Đánh dấu nút nhạc bị nhấn
+            musicButton.setMousePressed(true);  
+            // Đánh dấu nút nhạc bị nhấn
         // Kiểm tra xem chuột có nhấn vào nút hiệu ứng âm thanh không
         else if (isIn(e, sfxButton))
-            sfxButton.setMousePressed(true);  // Đánh dấu nút hiệu ứng âm thanh bị nhấn
+            sfxButton.setMousePressed(true);  
+            // Đánh dấu nút hiệu ứng âm thanh bị nhấn
         // Kiểm tra xem chuột có nhấn vào thanh âm lượng không
         else if (isIn(e, volumeButton))
             volumeButton.setMousePressed(true); // Đánh dấu thanh âm lượng bị nhấn
@@ -114,13 +116,14 @@ public class AudioOptions {
         sfxButton.setMouseOver(false);
         volumeButton.setMouseOver(false);
 
-        // Kiểm tra xem chuột có di qua nút nhạc không
+        /* Kiểm tra xem chuột có di qua nút nhạc không*/
         if (isIn(e, musicButton))
-            musicButton.setMouseOver(true);  // Nếu có, đánh dấu là hover
-        // Kiểm tra xem chuột có di qua nút hiệu ứng âm thanh không
+            musicButton.setMouseOver(true);  
+        /* Nếu có, đánh dấu là hover
+        Kiểm tra xem chuột có di qua nút hiệu ứng âm thanh không */
         else if (isIn(e, sfxButton))
             sfxButton.setMouseOver(true);  // Nếu có, đánh dấu là hover
-        // Kiểm tra xem chuột có di qua thanh âm lượng không
+        /* Kiểm tra xem chuột có di qua thanh âm lượng không */
         else if (isIn(e, volumeButton))
             volumeButton.setMouseOver(true);  // Nếu có, đánh dấu là hover
     }
