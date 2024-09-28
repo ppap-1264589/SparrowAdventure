@@ -41,7 +41,7 @@ public class VolumeButton extends PauseButton {
 		if (mouseOver)
 			index = 1; // Khi di chuyển nhưng không ấn
 		if (mousePressed)
-			index = 2; // Khi ấn chuột 
+			index = 2; // Khi ấn chuột .
 
 	}
 
