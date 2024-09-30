@@ -51,7 +51,7 @@ public class SoundButton extends PauseButton {
 	}
 
 	public boolean isMouseOver() {
-		return mouseOver;
+		return mouseOver; // Kiểm tra chuột có di chuyển nhưng không bấm không.
 	}
 
 	public void setMouseOver(boolean mouseOver) {
@@ -63,7 +63,7 @@ public class SoundButton extends PauseButton {
 	}
 
 	public void setMousePressed(boolean mousePressed) {
-		this.mousePressed = mousePressed;
+		this.mousePressed = mousePressed; 
 	}
 
 	public boolean isMuted() {
