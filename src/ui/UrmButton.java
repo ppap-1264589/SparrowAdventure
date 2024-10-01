@@ -20,11 +20,11 @@ public class UrmButton extends PauseButton {
 
     /**
      * Hàm khởi tạo UrmButton với vị trí và kích thước cụ thể.
-     * @param x Tọa độ x của nút.
-     * @param y Tọa độ y của nút.
-     * @param width Chiều rộng của nút.
-     * @param height Chiều cao của nút.
-     * @param rowIndex Chỉ mục hàng của nút trong sprite sheet.
+     *   x Tọa độ x của nút.
+     *   y Tọa độ y của nút.
+     *   width Chiều rộng của nút.
+     *   height Chiều cao của nút.
+     *   rowIndex Chỉ mục hàng của nút trong sprite sheet.
      */
     public UrmButton(int x, int y, int width, int height, int rowIndex) {
         super(x, y, width, height);  
@@ -62,7 +62,7 @@ public class UrmButton extends PauseButton {
 
     /**
      * Phương thức vẽ nút URM lên màn hình với trạng thái hiện tại.
-     * @param g Đối tượng Graphics để vẽ hình ảnh.
+     *   g Đối tượng Graphics để vẽ hình ảnh.
      */
     public void draw(Graphics g) {
         // Vẽ hình ảnh của nút tại vị trí (x, y) với kích thước URM_SIZE.
@@ -89,7 +89,7 @@ public class UrmButton extends PauseButton {
 
     /**
      * Thiết lập trạng thái chuột di vào nút.
-     * @param mouseOver Trạng thái chuột di vào.
+     *   mouseOver Trạng thái chuột di vào.
      */
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
@@ -105,7 +105,7 @@ public class UrmButton extends PauseButton {
 
     /**
      * Thiết lập trạng thái chuột nhấn nút.
-     * @param mousePressed Trạng thái chuột nhấn nút.
+     *   mousePressed Trạng thái chuột nhấn nút.
      */
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
