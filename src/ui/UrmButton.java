@@ -53,11 +53,14 @@ public class UrmButton extends PauseButton {
      * Trạng thái 0: Mặc định, 1: Chuột di vào, 2: Chuột nhấn.
      */
     public void update() {
-        index = 0;  // Mặc định là trạng thái bình thường
+        index = 0; 
+	    // Mặc định là trạng thái bình thường
         if (mouseOver)
-            index = 1;  // Nếu chuột di vào, chuyển sang trạng thái 1
+            index = 1; 
+	    // Nếu chuột di vào, chuyển sang trạng thái 1
         if (mousePressed)
-            index = 2;  // Nếu chuột nhấn, chuyển sang trạng thái 2
+            index = 2; 
+	    // Nếu chuột nhấn, chuyển sang trạng thái 2
     }
 
     /**
