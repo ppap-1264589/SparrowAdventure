@@ -62,7 +62,7 @@ public class UrmButton extends PauseButton {
 
     /**
      * Phương thức vẽ nút URM lên màn hình với trạng thái hiện tại.
-     *   g Đối tượng Graphics để vẽ hình ảnh.
+     *   g: Đối tượng Graphics để vẽ hình ảnh.
      */
     public void draw(Graphics g) {
         // Vẽ hình ảnh của nút tại vị trí (x, y) với kích thước URM_SIZE.
@@ -80,8 +80,8 @@ public class UrmButton extends PauseButton {
     // Các phương thức getter và setter cho trạng thái chuột
 
     /**
-     * Kiểm tra xem chuột có đang di vào nút hay không.
-     * @return true nếu chuột đang di vào, ngược lại false.
+      Kiểm tra xem chuột có đang di vào nút hay không.
+      return true nếu chuột đang di vào, ngược lại false.
      */
     public boolean isMouseOver() {
         return mouseOver;
@@ -97,7 +97,7 @@ public class UrmButton extends PauseButton {
 
     /**
      * Kiểm tra xem nút có đang được nhấn hay không.
-     * @return true nếu nút đang được nhấn, ngược lại false.
+     * return true nếu nút đang được nhấn, ngược lại false.
      */
     public boolean isMousePressed() {
         return mousePressed;
