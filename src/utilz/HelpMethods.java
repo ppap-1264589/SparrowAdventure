@@ -50,7 +50,7 @@ public class HelpMethods {
 		return false;
 	}
 
-	public static float GetEntityXPosNExtToWall(Rectangle2D.Float hitbox, float xSpeed) {
+	public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed) {
 		// Ham nay se tra ve vi tri cua hitbox.x ke canh voi wall nhat co the
 
 		int currentTile = (int)(hitbox.x / Game.TILES_SIZE);
@@ -63,7 +63,7 @@ public class HelpMethods {
 
 			int tileXPos = currentTile * Game.TILES_SIZE; // Vi tri cua nhan vat theo x cua tile hien tai
 			int xOffset = (int)(Game.TILES_SIZE - hitbox.width);
-			// Khoang cach giua canh ben trai cua hitbox voi canh ben trai cua currtenTile
+			// Khoang cach giua canh ben trai cua hitbox voi canh ben trai cua currentTile
 			// khi hitbox da sat vao canh ben phai cua currentTile;
 			//  |        |
 			//  |_____|  |
