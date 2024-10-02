@@ -2,7 +2,7 @@ package entities;
 
 
 import static utilz.Constants.PlayerConstants.*;
-import static utilz.HelpMethods.CanMoveHere;
+import static utilz.HelpMethods.*;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -29,7 +29,7 @@ public class Player extends Entity{
 
 	//PLAYER_STATE_MOVING
 	private boolean moving = false;
-	private boolean left, up, right, down;
+	private boolean left, up, right, down, jump;
 	//PLAYER_STATE_MOVING
 	
 	//PLAYER_STATE_ATTACKING
@@ -62,11 +62,19 @@ public class Player extends Entity{
 	 * 
 	 * Phần bị dư ra này gọi là offset
 	 */
-	
+
+	// Jumping / Gravity
+	private float airSpeed = 0f;   // Van toc khi nhay hoac roi tu do
+	private float gravity = 0.04f * Game.SCALE; // gia toc
+	private float jumpSpeed = -2.25f * Game.SCALE; // van toc ban dau khi nhay
+	private float fallSpeedAfterCollison = 0.5f * Game.SCALE;
+	// van toc roi xuong trong truong hop nhan vat nhay den cham noc
+	private boolean inAir = false;
+
 	public Player(float x, float y, int width, int height) {
 		super(x, y, width, height);
 		loadAnimations();
-		initHitbox(x, y, 20 * Game.SCALE, 28 * Game.SCALE);
+		initHitbox(x, y, 20 * Game.SCALE, 27 * Game.SCALE);
 	}
 	/*
 	 * Tư tưởng bây giờ, đó là vị trí (x, y) của nhân vật 
@@ -131,6 +139,13 @@ public class Player extends Entity{
 			playerAction = RUNNING;
 		}
 		else playerAction = IDLE;
+
+		if(inAir) {
+			if(airSpeed < 0)
+				playerAction = JUMP;
+			else
+				playerAction = FALLING;
+		}
 		
 		if (attacking) {
 			playerAction = ATTACK_1;
@@ -157,31 +172,77 @@ public class Player extends Entity{
 
 	private void updatePos() { //di chuyen theo huong
 		moving = false;
+
+		if(jump)
+			jump();
 		
-		if (!left && !right && !up && !down) return;
+		if (!left && !right && !inAir) return;
 		
 		float xSpeed = 0;
-		float ySpeed = 0;
 		
-		if (left && !right)	xSpeed = -playerSpeed;
-		else if (right && !left) xSpeed = playerSpeed;
-		
-		if (up && !down) ySpeed = -playerSpeed;
-		else if (down && !up) ySpeed = playerSpeed;
-		
-		/*
-		 Với cài đặt này, nhân vật thậm chí có thể di chuyển
-		 theo đường chéo, vì left và up có thể được nhận bằng true
-		 cùng một lúc qua hàm keyPressed ở KeyBoardInputs.java
-		 */
-				
-		if (CanMoveHere(hitBox.x + xSpeed, hitBox.y + ySpeed, hitBox.width, hitBox.height, lvlData)) {
-			hitBox.x += xSpeed;
-			hitBox.y += ySpeed;
-			moving = true;
+		if (left)
+			xSpeed -= playerSpeed;
+		else if (right)
+			xSpeed += playerSpeed;
+
+		if(!inAir) {
+			if(!IsEntityOnFloor(hitBox, lvlData)) {
+				// Truong hop dang di het duong va roi xuong bac duoi
+				inAir = true;
+			}
 		}
-	} 
-	
+
+		if(inAir) {
+			if(CanMoveHere(hitBox.x, hitBox.y + airSpeed, hitBox.width, hitBox.height, lvlData)) {
+				hitBox.y += airSpeed;
+				airSpeed += gravity;
+				updateXPos(xSpeed);
+			}
+			else {
+				// Cham noc hoac tren mat dat
+				hitBox.y = GetEntityYPosUnderRoofOrAboveFloor(hitBox, airSpeed);
+				if(airSpeed > 0) // Reset sau khi roi xong va cham dat
+					resetInAir();
+				else
+					airSpeed = fallSpeedAfterCollison;
+				updateXPos(xSpeed);
+			}
+		}
+		else {
+			// Neu khong inAir hay noi cach khac la dung tren mat dat thi chi can kiem tra collision voi XDirecrion
+			updateXPos(xSpeed);
+		}
+
+		moving = true;
+
+	}
+
+	private void jump() {
+		if(inAir) // Neu dang bay
+			return;
+		// Neu chua bay
+		inAir = true;
+		airSpeed = jumpSpeed; // van toc ban dau
+	}
+
+	private void resetInAir() {
+		inAir = false;
+		airSpeed = 0;
+	}
+
+	private void updateXPos(float xSpeed) {
+		// Ham nay de xem co di chuyen duoc sang phai / trai voi van toc XSpeed khong
+		// Neu khong thi ta se di chuyen sao cho hitbox ke voi wall
+		if (CanMoveHere(hitBox.x + xSpeed, hitBox.y, hitBox.width, hitBox.height, lvlData)) {
+			hitBox.x += xSpeed;
+		}
+		else {
+			// Truong hop van con khoang cach dx rat nho giua hitbox va wall
+			// Ta mong muon bien cua hitbox ke voi wall
+			hitBox.x = GetEntityXPosNExtToWall(hitBox, xSpeed);
+		}
+	}
+
 	private void loadAnimations() {
 		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 		animations = new BufferedImage[9][6]; //cac hoat anh la ma tran 9*6 nhu trong anh o resource
@@ -199,6 +260,8 @@ public class Player extends Entity{
 	
 	public void loadLvlData(int[][] lvlData) {
 		this.lvlData = lvlData;
+		if(!IsEntityOnFloor(hitBox, lvlData))
+			inAir = true;
 	}
 
 	public boolean isLeft() {
@@ -239,5 +302,9 @@ public class Player extends Entity{
 	
 	public void setAttack(boolean attacking) {
 		this.attacking = attacking;		
+	}
+
+	public void setJump(boolean jump) {
+		this.jump = jump;
 	}
 }
