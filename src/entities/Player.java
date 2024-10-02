@@ -14,7 +14,7 @@ public class Player extends Entity{
 	
 	//HINH ANH
 	private int aniTick, aniIndex;
-	private int aniNum = 25;
+	private int aniNum = 26;
 	//HINH ANH
 	
 	//SUBIMAGE SIZE
@@ -74,7 +74,8 @@ public class Player extends Entity{
 	public Player(float x, float y, int width, int height) {
 		super(x, y, width, height);
 		loadAnimations();
-		initHitbox(x, y, 20 * Game.SCALE, 27 * Game.SCALE);
+		initHitbox(x, y, (int)(20 * Game.SCALE), (int)(27 * Game.SCALE)); 
+		//cast int để không bị lỗi collision liên tục với mặt đất hoặc bờ tường
 	}
 	/*
 	 * Tư tưởng bây giờ, đó là vị trí (x, y) của nhân vật 
@@ -239,7 +240,7 @@ public class Player extends Entity{
 		else {
 			// Truong hop van con khoang cach dx rat nho giua hitbox va wall
 			// Ta mong muon bien cua hitbox ke voi wall
-			hitBox.x = GetEntityXPosNExtToWall(hitBox, xSpeed);
+			hitBox.x = GetEntityXPosNextToWall(hitBox, xSpeed);
 		}
 	}
 
