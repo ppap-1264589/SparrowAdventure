@@ -10,84 +10,139 @@ import gamestates.Playing;
 import main.Game;
 import utilz.LoadSave;
 
+/**
+ * Lớp GameCompletedOverlay hiển thị giao diện khi trò chơi đã hoàn thành.
+ * Nó bao gồm hình ảnh và các nút để người chơi có thể chọn quay lại menu hoặc xem thông tin tín dụng.
+ */
 public class GameCompletedOverlay {
-	private Playing playing;
-	private BufferedImage img;
-	private MenuButton quit, credit;
-	private int imgX, imgY, imgW, imgH;
+    private Playing playing; 
+	// Tham chiếu đến trạng thái trò chơi đang chơi
+    private BufferedImage img;
+	// Hình ảnh hiển thị khi trò chơi hoàn thành
+    private MenuButton quit, credit; 
+	// Các nút "Quay lại menu" và "Thông tin tín dụng"
+    private int imgX, imgY, imgW, imgH; 
+	// Toạ độ và kích thước của hình ảnh
 
-	public GameCompletedOverlay(Playing playing) {
-		this.playing = playing;
-		createImg();
-		createButtons();
-	}
+    /**
+     * Hàm khởi tạo GameCompletedOverlay.
+     * @param playing Tham chiếu đến đối tượng Playing, cho phép truy cập các phương thức và thuộc tính của nó.
+     */
+    public GameCompletedOverlay(Playing playing) {
+        this.playing = playing; // Gán tham chiếu đến trạng thái chơi
+        createImg(); // Tạo hình ảnh hiển thị
+        createButtons(); // Tạo các nút
+    }
 
-	private void createButtons() {
-		quit = new MenuButton(Game.GAME_WIDTH / 2, (int) (270 * Game.SCALE), 2, Gamestate.MENU);
-		credit = new MenuButton(Game.GAME_WIDTH / 2, (int) (200 * Game.SCALE), 3, Gamestate.CREDITS);
-	}
+    /**
+     * Tạo các nút cho giao diện hoàn thành trò chơi.
+     * Bao gồm nút "Quay lại menu" và nút "Thông tin tín dụng".
+     */
+    private void createButtons() {
+        // Khởi tạo nút "Quay lại menu" với vị trí và kích thước cụ thể
+        quit = new MenuButton(Game.GAME_WIDTH / 2, (int) (270 * Game.SCALE), 2, Gamestate.MENU);
+        // Khởi tạo nút "Thông tin tín dụng" với vị trí và kích thước cụ thể
+        credit = new MenuButton(Game.GAME_WIDTH / 2, (int) (200 * Game.SCALE), 3, Gamestate.CREDITS);
+    }
 
-	private void createImg() {
-		img = LoadSave.GetSpriteAtlas(LoadSave.GAME_COMPLETED);
-		imgW = (int) (img.getWidth() * Game.SCALE);
-		imgH = (int) (img.getHeight() * Game.SCALE);
-		imgX = Game.GAME_WIDTH / 2 - imgW / 2;
-		imgY = (int) (100 * Game.SCALE);
+    /**
+     * Tạo hình ảnh hiển thị cho giao diện hoàn thành trò chơi.
+     * Lấy hình ảnh từ sprite sheet và tính toán kích thước, vị trí để hiển thị.
+     */
+    private void createImg() {
+        img = LoadSave.GetSpriteAtlas(LoadSave.GAME_COMPLETED); // Lấy sprite sheet của hình ảnh hoàn thành
+        imgW = (int) (img.getWidth() * Game.SCALE); // Tính chiều rộng hình ảnh
+        imgH = (int) (img.getHeight() * Game.SCALE); // Tính chiều cao hình ảnh
+        imgX = Game.GAME_WIDTH / 2 - imgW / 2; // Tính toạ độ x để căn giữa hình ảnh
+        imgY = (int) (100 * Game.SCALE); // Tính toạ độ y để hiển thị hình ảnh
+    }
 
-	}
+    /**
+     * Phương thức vẽ giao diện hoàn thành trò chơi lên màn hình.
+     * @param g Đối tượng Graphics để vẽ hình ảnh và các nút.
+     */
+    public void draw(Graphics g) {
+        g.setColor(new Color(0, 0, 0, 200)); // Đặt màu nền với độ trong suốt
+        g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT); // Vẽ hình chữ nhật che toàn màn hình
 
-	public void draw(Graphics g) {
-		g.setColor(new Color(0, 0, 0, 200));
-		g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
+        g.drawImage(img, imgX, imgY, imgW, imgH, null); // Vẽ hình ảnh hoàn thành
 
-		g.drawImage(img, imgX, imgY, imgW, imgH, null);
+        // Vẽ các nút "Quay lại menu" và "Thông tin tín dụng"
+        credit.draw(g);
+        quit.draw(g);
+    }
 
-		credit.draw(g);
-		quit.draw(g);
-	}
+    /**
+     * Cập nhật trạng thái của các nút khi giao diện hoàn thành trò chơi được vẽ lại.
+     */
+    public void update() {
+        credit.update(); // Cập nhật trạng thái nút "Thông tin tín dụng"
+        quit.update(); // Cập nhật trạng thái nút "Quay lại menu"
+    }
 
-	public void update() {
-		credit.update();
-		quit.update();
-	}
+    /**
+     * Kiểm tra xem con chuột có nằm trong phạm vi của nút không.
+     * @param b Nút cần kiểm tra.
+     * @param e Sự kiện chuột chứa thông tin vị trí chuột.
+     * @return true nếu chuột nằm trong nút, ngược lại false.
+     */
+    private boolean isIn(MenuButton b, MouseEvent e) {
+        return b.getBounds().contains(e.getX(), e.getY()); // Kiểm tra xem tọa độ chuột có nằm trong vùng của nút không
+    }
 
-	private boolean isIn(MenuButton b, MouseEvent e) {
-		return b.getBounds().contains(e.getX(), e.getY());
-	}
+    /**
+     * Xử lý sự kiện di chuyển chuột.
+     * Cập nhật trạng thái của các nút dựa trên vị trí của chuột.
+     * @param e Sự kiện chuột chứa thông tin vị trí chuột.
+     */
+    public void mouseMoved(MouseEvent e) {
+        // Đặt trạng thái chuột không di vào cho tất cả các nút
+        credit.setMouseOver(false);
+        quit.setMouseOver(false);
 
-	public void mouseMoved(MouseEvent e) {
-		credit.setMouseOver(false);
-		quit.setMouseOver(false);
+        // Kiểm tra nếu chuột di vào nút nào thì cập nhật trạng thái tương ứng
+        if (isIn(quit, e))
+            quit.setMouseOver(true);
+        else if (isIn(credit, e))
+            credit.setMouseOver(true);
+    }
 
-		if (isIn(quit, e))
-			quit.setMouseOver(true);
-		else if (isIn(credit, e))
-			credit.setMouseOver(true);
-	}
+    /**
+     * Xử lý sự kiện khi chuột nhả nút.
+     * Nếu chuột nhả nút trên một trong các nút, thực hiện hành động tương ứng.
+     * @param e Sự kiện chuột chứa thông tin vị trí chuột.
+     */
+    public void mouseReleased(MouseEvent e) {
+        if (isIn(quit, e)) { // Nếu nhả chuột trên nút "Quay lại menu"
+            if (quit.isMousePressed()) { // Nếu nút đã được nhấn
+                playing.resetAll(); // Đặt lại trạng thái chơi
+                playing.resetGameCompleted(); // Đặt lại trạng thái hoàn thành trò chơi
+                playing.setGamestate(Gamestate.MENU); // Chuyển đến trạng thái menu
+            }
+        } else if (isIn(credit, e)) { // Nếu nhả chuột trên nút "Thông tin tín dụng"
+            if (credit.isMousePressed()) { // Nếu nút đã được nhấn
+                playing.resetAll(); // Đặt lại trạng thái chơi
+                playing.resetGameCompleted(); // Đặt lại trạng thái hoàn thành trò chơi
+                playing.setGamestate(Gamestate.CREDITS); // Chuyển đến trạng thái tín dụng
+            }
+        }
 
-	public void mouseReleased(MouseEvent e) {
-		if (isIn(quit, e)) {
-			if (quit.isMousePressed()) {
-				playing.resetAll();
-				playing.resetGameCompleted();
-				playing.setGamestate(Gamestate.MENU);
+        // Đặt lại trạng thái của các nút
+        quit.resetBools();
+        credit.resetBools();
+    }
 
-			}
-		} else if (isIn(credit, e))
-			if (credit.isMousePressed()) {
-				playing.resetAll();
-				playing.resetGameCompleted();
-				playing.setGamestate(Gamestate.CREDITS);
-			}
-
-		quit.resetBools();
-		credit.resetBools();
-	}
-
-	public void mousePressed(MouseEvent e) {
-		if (isIn(quit, e))
-			quit.setMousePressed(true);
-		else if (isIn(credit, e))
-			credit.setMousePressed(true);
-	}
+    /**
+     * Xử lý sự kiện khi chuột được nhấn.
+     * Ghi nhận nút nào đã được nhấn để xử lý sau này.
+     * @param e Sự kiện chuột chứa thông tin vị trí chuột.
+     */
+    public void mousePressed(MouseEvent e) {
+        if (isIn(quit, e))
+		// Nếu nhấn vào nút "Quay lại menu"
+            quit.setMousePressed(true);
+        else if (isIn(credit, e))
+		// Nếu nhấn vào nút "Thông tin tín dụng"
+            credit.setMousePressed(true);
+    }
 }
