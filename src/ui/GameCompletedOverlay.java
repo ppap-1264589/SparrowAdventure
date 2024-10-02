@@ -26,7 +26,7 @@ public class GameCompletedOverlay {
 
     /**
      * Hàm khởi tạo GameCompletedOverlay.
-     * @param playing Tham chiếu đến đối tượng Playing, cho phép truy cập các phương thức và thuộc tính của nó.
+     *   playing Tham chiếu đến đối tượng Playing, cho phép truy cập các phương thức và thuộc tính của nó.
      */
     public GameCompletedOverlay(Playing playing) {
         this.playing = playing; // Gán tham chiếu đến trạng thái chơi
@@ -59,7 +59,7 @@ public class GameCompletedOverlay {
 
     /**
      * Phương thức vẽ giao diện hoàn thành trò chơi lên màn hình.
-     * @param g Đối tượng Graphics để vẽ hình ảnh và các nút.
+     *   g Đối tượng Graphics để vẽ hình ảnh và các nút.
      */
     public void draw(Graphics g) {
         g.setColor(new Color(0, 0, 0, 200)); // Đặt màu nền với độ trong suốt
@@ -82,8 +82,8 @@ public class GameCompletedOverlay {
 
     /**
      * Kiểm tra xem con chuột có nằm trong phạm vi của nút không.
-     * @param b Nút cần kiểm tra.
-     * @param e Sự kiện chuột chứa thông tin vị trí chuột.
+     *   b Nút cần kiểm tra.
+     *   e Sự kiện chuột chứa thông tin vị trí chuột.
      * @return true nếu chuột nằm trong nút, ngược lại false.
      */
     private boolean isIn(MenuButton b, MouseEvent e) {
@@ -93,7 +93,7 @@ public class GameCompletedOverlay {
     /**
      * Xử lý sự kiện di chuyển chuột.
      * Cập nhật trạng thái của các nút dựa trên vị trí của chuột.
-     * @param e Sự kiện chuột chứa thông tin vị trí chuột.
+     *   e Sự kiện chuột chứa thông tin vị trí chuột.
      */
     public void mouseMoved(MouseEvent e) {
         // Đặt trạng thái chuột không di vào cho tất cả các nút
@@ -110,7 +110,7 @@ public class GameCompletedOverlay {
     /**
      * Xử lý sự kiện khi chuột nhả nút.
      * Nếu chuột nhả nút trên một trong các nút, thực hiện hành động tương ứng.
-     * @param e Sự kiện chuột chứa thông tin vị trí chuột.
+     *   e Sự kiện chuột chứa thông tin vị trí chuột.
      */
     public void mouseReleased(MouseEvent e) {
         if (isIn(quit, e)) { // Nếu nhả chuột trên nút "Quay lại menu"
@@ -135,7 +135,7 @@ public class GameCompletedOverlay {
     /**
      * Xử lý sự kiện khi chuột được nhấn.
      * Ghi nhận nút nào đã được nhấn để xử lý sau này.
-     * @param e Sự kiện chuột chứa thông tin vị trí chuột.
+     *   e Sự kiện chuột chứa thông tin vị trí chuột.
      */
     public void mousePressed(MouseEvent e) {
         if (isIn(quit, e))
