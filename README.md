@@ -6,7 +6,6 @@
 </div>
 # Đây là phần code bài tập lớn OOP lớp thầy Trần Nhật Hóa
 
-Gốc gác của phần code này lấy từ trang Youtube:
 
 https://www.youtube.com/watch?v=6_N8QZ47toY&list=PL4rzdwizLaxYmltJQRjq18a9gsSyEQQ-0
 
