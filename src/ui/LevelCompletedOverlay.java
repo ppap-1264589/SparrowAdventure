@@ -46,11 +46,11 @@ public class LevelCompletedOverlay {
 
     // Phương thức khởi tạo hình ảnh hiển thị khi hoàn thành màn chơi
     private void initImg() {
-        img = LoadSave.GetSpriteAtlas(LoadSave.COMPLETED_IMG); // Tải hình ảnh từ tài nguyên
-        bgW = (int) (img.getWidth() * Game.SCALE); // Tính toán chiều rộng của hình ảnh
-        bgH = (int) (img.getHeight() * Game.SCALE); // Tính toán chiều cao của hình ảnh
-        bgX = Game.GAME_WIDTH / 2 - bgW / 2; // Căn giữa hình ảnh theo chiều ngang
-        bgY = (int) (75 * Game.SCALE); // Đặt vị trí y của hình ảnh
+        img = LoadSave.GetSpriteAtlas(LoadSave.COMPLETED_IMG); // nạp vào hình ảnh từ tài nguyên
+        bgW = (int) (img.getWidth() * Game.SCALE); // tính toán chiều rộng của hình ảnh
+        bgH = (int) (img.getHeight() * Game.SCALE); // tính toán chiều cao của hình ảnh
+        bgX = Game.GAME_WIDTH / 2 - bgW / 2; // căn giữa hình ảnh theo chiều ngang
+        bgY = (int) (75 * Game.SCALE); // đặt vị trí y của hình ảnh
     }
 
     // Phương thức vẽ màn hình khi hoàn thành màn chơi lên giao diện

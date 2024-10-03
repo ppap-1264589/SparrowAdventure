@@ -3,6 +3,9 @@ package main;
 import java.awt.Graphics;
 
 import entities.Player;
+import gamestates.Gamestate;
+import gamestates.Menu;
+import gamestates.Playing;
 import levels.LevelManager;
 
 public class Game implements Runnable{
@@ -30,10 +33,12 @@ Nhanh		|		   logic tốt,			|		nhân vật chạy chậm	|
 Thấp		|		nhân vật chạy nhanh		|		chạy thì chậm, 		|
 	 		|		game hơi lag			|		game thì lag		|
 */
-	
-	private Player player;
-	private LevelManager levelManager;
-	
+
+	////////////////////////
+
+	private Playing playing;
+	private Menu menu;
+
 	//CÁC HẰNG SỐ CHO CÁC TILES
 	public final static int TILES_DEFAULT_SIZE = 32; 
 	public final static float SCALE = 1.5f;
@@ -71,11 +76,10 @@ Thấp		|		nhân vật chạy nhanh		|		chạy thì chậm, 		|
 		
 		startGameLoop(); //gameloop should be the last after all!
 	}
-	
+
 	private void initClasses(){
-		levelManager = new LevelManager(this);
-		player = new Player(200, 200, (int)(SUB_WIDTH * SCALE), (int)(SUB_HEIGHT * SCALE));
-		player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
+		menu = new Menu(this);
+		playing = new Playing(this);
 	}
 
 	private void startGameLoop() {
@@ -84,13 +88,28 @@ Thấp		|		nhân vật chạy nhanh		|		chạy thì chậm, 		|
 	}
 	
 	public void update() {
-		player.update();
-		levelManager.update();
+
+		switch (Gamestate.state) {
+			case MENU:
+				menu.update();
+				break;
+			case PLAYING:
+				playing.update();
+				break;
+		}
 	}
 	
 	public void render(Graphics g) {
-		levelManager.draw(g);
-		player.render(g);
+
+		switch (Gamestate.state) {
+			case MENU:
+				menu.draw(g);
+				break;
+			case PLAYING:
+				playing.draw(g);
+				break;
+		}
+
 	} //Vẽ background trước, vẽ người sau
 
 	@Override
@@ -136,10 +155,18 @@ Thấp		|		nhân vật chạy nhanh		|		chạy thì chậm, 		|
 	}
 	
 	public void windowFocusLost() {
-		player.resetDirBooleans();
+		if(Gamestate.state == Gamestate.PLAYING) {
+			playing.getPlayer().resetDirBooleans();
+		}
+
+		/// Trong truong hop dang choi ma lo bam sang tab khac khien game chua dung han
 	}
-	
-	public Player getPlayer() {
-		return player;
+
+	public Menu getMenu() {
+		return  menu;
+	}
+
+	public Playing getPlaying() {
+		return  playing;
 	}
 }
