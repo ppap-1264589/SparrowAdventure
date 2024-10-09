@@ -32,7 +32,11 @@ public class HelpMethods {
 		float xIndex = x/Game.TILES_SIZE;
 		float yIndex = y/Game.TILES_SIZE;
 		//in fact: mỗi tọa độ (x, y) của mình, đều tương đương với một cái tile nào đấy trong game
-		
+		return IsTileSolid((int)xIndex, (int)yIndex, lvlData);
+
+	}
+
+	public static boolean IsTileSolid(int xIndex, int yIndex, int [][] lvlData) {
 		int value = lvlData[(int)yIndex][(int)xIndex];
 		/*
 		 * Quy ước:
@@ -41,13 +45,13 @@ public class HelpMethods {
 		 * tia Oy đi từ TRÊN xuống DƯỚI
 		 * thành ra, yIndex là chỉ số hàng, xIndex là chỉ số cột của ma trận lvlData[][]
 		 */
-		
+
 		if (value >= 48 || value < 0 || value != 11)  return true;
 		/*
 		 (value >= 48 || value < 0) -> nếu mình di chuyển ra ngoài biên, thì solid -> không đi đâu được nữa
 		 value != 11 -> nếu mình không đi vào ô không gian trống -> chạm vào vật thể -> solid
 		 */
-		
+
 		return false;
 	}
 
@@ -104,4 +108,37 @@ public class HelpMethods {
 		}
 		return true;
 	}
+
+	public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvldata) {
+		return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, lvldata);
+		// Check diem duoi phai
+	}
+
+	public static boolean IsAllTileWalkable(int xStart, int xEnd, int y, int[][] lvldata) {
+		// Kiem tra xem tu xStart den xEnd co di duoc khong
+		// Hay noi cach khac la co vat can o giua 2 diem khong
+		for(int i = 0; i < xEnd - xStart; i++) {
+			if (IsTileSolid(xStart + i, y, lvldata)) {
+				return false;
+			}
+
+			// Truong hop ma co mot ho o giua player va enemy
+			if (!IsTileSolid(xStart + i, y + 1, lvldata)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/// kiem tra xem giua 2 object co vat the khong
+	public static boolean IsSightClear(int[][] lvldata, Rectangle2D.Float firsthitbox, Rectangle2D.Float secondhitbox, int yTile) {
+		int firstXTile = (int) (firsthitbox.x / Game.TILES_SIZE);
+		int secondXTile = (int) (secondhitbox.x / Game.TILES_SIZE);
+
+		if(firstXTile > secondXTile) {
+			return IsAllTileWalkable(secondXTile, firstXTile, yTile, lvldata);
+		}
+		return IsAllTileWalkable(firstXTile, secondXTile, yTile, lvldata);
+    }
+
 }
