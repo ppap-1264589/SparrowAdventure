@@ -12,7 +12,7 @@ public class Game implements Runnable{
 	private GameWindow gameWindow;
 	private GamePanel gamePanel;
 	
-	private Thread gameThread; // Luong trong game
+	public Thread gameThread; // Luong trong game
 	
 	private final int FPS_SET = 120;
 	private final int UPS_SET = 200;
@@ -144,10 +144,9 @@ Thấp		|		nhân vật chạy nhanh		|		chạy thì chậm, 		|
 				++frames;
 			} //rendering
 
-			
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis();
-				System.out.println("FPS: " + frames + " | UPS: " + updates);
+				//System.out.println("FPS: " + frames + " | UPS: " + updates);
 				frames = 0;
 				updates = 0;
 			}
