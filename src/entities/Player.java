@@ -91,8 +91,8 @@ public class Player extends Entity{
 		setAnimation();
 	}
 	
-	public void render(Graphics g, int lvlOffset) {
-		g.drawImage(animations[playerAction][aniIndex], (int)(hitBox.x - xDrawOffset) - lvlOffset, (int)(hitBox.y - yDrawOffset), width, height, null);
+	public void render(Graphics g, int xlvlOffset) {
+		g.drawImage(animations[playerAction][aniIndex], (int)(hitBox.x - xDrawOffset) - xlvlOffset, (int)(hitBox.y - yDrawOffset), width, height, null);
 		/*
 		 Bước 1: vẽ hoạt ảnh nhân vật
 		 Ta cần xác định vị trí bắt đầu vẽ hoạt ảnh từ trị ví của hitbox
@@ -106,7 +106,7 @@ public class Player extends Entity{
 		
 //		System.out.println((int)(hitBox.x - xDrawOffset) + " " + (int)(hitBox.y - yDrawOffset) + " " + hitBox.x + " " + hitBox.y);
 		
-		//drawHitbox(g);
+		drawHitbox(g, xlvlOffset);
 		/*
 		 * Bước 2: vẽ hitbox để debug
 		 * (hitbox.x, hitbox.y) ở chỗ nào thì vẽ hitbox debug ở chỗ đó (easy) 
@@ -313,4 +313,3 @@ public class Player extends Entity{
 		this.jump = jump;
 	}
 }
-
