@@ -1,5 +1,6 @@
 package gamestates;
 
+import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
@@ -18,6 +19,7 @@ import static utilz.Constants.Environment.*;
 public class Playing extends State implements Statemethods {
     private Player player;
     private LevelManager levelManager;
+    private EnemyManager enemyManager;
 
     // Y tuong cho background moving khi lam map rong:
     // Do thuc te screen chi hien thi tu (0,0) - (Width, Height)
@@ -67,6 +69,7 @@ public class Playing extends State implements Statemethods {
 
     private void initClasses(){
         levelManager = new LevelManager(game);
+        enemyManager = new EnemyManager(this);
         player = new Player(150, 150, (int)(64 * Game.SCALE), (int)(40 * Game.SCALE));
         player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
     }
@@ -83,6 +86,7 @@ public class Playing extends State implements Statemethods {
     public void update() {
         levelManager.update();
         player.update();
+        enemyManager.update(levelManager.getCurrentLevel().getLvlData(), player);
         checkCloseToBorder();
     }
 
@@ -118,6 +122,7 @@ public class Playing extends State implements Statemethods {
 
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
+        enemyManager.draw(g, xLvlOffset);
     }
 
     private void drawClouds(Graphics g) {
