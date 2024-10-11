@@ -7,11 +7,6 @@
 # Đây là phần code bài tập lớn OOP lớp thầy Trần Nhật Hóa
 
 
-https://www.youtube.com/watch?v=6_N8QZ47toY&list=PL4rzdwizLaxYmltJQRjq18a9gsSyEQQ-0
-
-Bộ code dự kiến cần phải hiểu đề bảo vệ bài tập lớn cuối kì:
-https://github.com/KaarinGaming/PlatformerTutorial/tree/ep29
-
 Để mang một bộ code về chạy thử trên Eclipse, thực hiện các bước sau:
 
 Trước tiên, download code dưới dạng .zip, giải nén nó ra, sau đó để vào một nơi mà mình dễ tìm
