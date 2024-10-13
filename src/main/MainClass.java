@@ -5,5 +5,3 @@ public class MainClass{
     	new Game();
     }
 }
-
-//New game -> new everything
