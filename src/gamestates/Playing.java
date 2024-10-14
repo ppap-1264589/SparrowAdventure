@@ -173,7 +173,7 @@ public class Playing extends State implements Statemethods {
     }
 
     @Override
-    public void mouseMove(MouseEvent e) {
+    public void mouseMoved(MouseEvent e) {
 
     }
 
