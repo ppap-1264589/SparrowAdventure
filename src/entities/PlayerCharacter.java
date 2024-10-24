@@ -28,8 +28,7 @@ public enum PlayerCharacter {
     public int spriteW, spriteH;
     public int hitboxW, hitboxH;
     public int xDrawOffset, yDrawOffset;
-
-
+    
     /*
      private float xDrawOffset = 21 * Game.SCALE;
     private float yDrawOffset = 4 * Game.SCALE;

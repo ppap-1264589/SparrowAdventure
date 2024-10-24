@@ -20,19 +20,9 @@ import ui.GameOverOverlay;
 import ui.LevelCompletedOverlay;
 import ui.PauseOverlay;
 import utilz.LoadSave;
-<<<<<<< HEAD
+
 import effects.DialogueEffect;
 import effects.Rain;
-=======
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.nio.FloatBuffer;
-import java.util.Random;
->>>>>>> 4e7797b88e5162979665150eff9244a73a7697b1
 
 import static utilz.Constants.Environment.*;
 import static utilz.Constants.Dialogue.*;
@@ -85,7 +75,6 @@ public class Playing extends State implements Statemethods {
     private Random rnd = new Random();
     private boolean gameOver = false;
 
-    private boolean gameOver;
     private boolean lvlCompleted;
     private boolean gameCompleted;
     private boolean playerDying;
@@ -220,7 +209,6 @@ public class Playing extends State implements Statemethods {
         }
     }
 
-<<<<<<< HEAD
     private void updateShipAni() {
         shipTick++;
         if (shipTick >= 35) {
@@ -483,13 +471,6 @@ public class Playing extends State implements Statemethods {
 
     public void unpauseGame() {
         paused = false;
-=======
-    private void initClasses(){
-        levelManager = new LevelManager(game);
-        enemyManager = new EnemyManager(this);
-        player = new Player(150, 150, (int)(64 * Game.SCALE), (int)(40 * Game.SCALE), this);
-        player.loadLvlData(levelManager.getCurrentLevel().getLvlData());
->>>>>>> 4e7797b88e5162979665150eff9244a73a7697b1
     }
 
     public void windowFocusLost() {
@@ -508,103 +489,11 @@ public class Playing extends State implements Statemethods {
         return objectManager;
     }
 
-<<<<<<< HEAD
     public LevelManager getLevelManager() {
         return levelManager;
-=======
-    @Override
-    public void draw(Graphics g) {
-        g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
-        drawClouds(g);
-
-        levelManager.draw(g, xLvlOffset);
-        player.render(g, xLvlOffset);
-        enemyManager.draw(g, xLvlOffset);
-
->>>>>>> 4e7797b88e5162979665150eff9244a73a7697b1
     }
 
     public void setPlayerDying(boolean playerDying) {
         this.playerDying = playerDying;
     }
-
-<<<<<<< HEAD
-
-=======
-    public void resetAll() {
-        gameOver = false;
-        //paused = false;
-        player.resetAll();
-        enemyManager.resetAllEnemies();
-    }
-
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
-    }
-
-    public void checkEnemyHit(Rectangle2D.Float attackBox) {
-        enemyManager.checkEnemyHit(attackBox);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(!gameOver)
-            if (e.getButton() == MouseEvent.BUTTON1) {
-            player.setAttack(true);
-            }
-		/*Nếu sự kiện bắt được là nút chuột trái thì
-		 nhân vật bắt đầu tấn công!
-		 */
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch(e.getKeyCode()) {
-
-            case KeyEvent.VK_A:
-                player.setLeft(true);
-                break;
-            case KeyEvent.VK_D:
-                player.setRight(true);
-                break;
-            case KeyEvent.VK_SPACE:
-                player.setJump(true);
-                break;
-            case KeyEvent.VK_BACK_SPACE:
-                Gamestate.state = Gamestate.MENU;
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if(gameOver) return;
-        switch(e.getKeyCode()) {
-            case KeyEvent.VK_A:
-                player.setLeft(false);
-                break;
-            case KeyEvent.VK_D:
-                player.setRight(false);
-                break;
-            case KeyEvent.VK_SPACE:
-                player.setJump(false);
-                break;
-
-        }
-    }
->>>>>>> 4e7797b88e5162979665150eff9244a73a7697b1
 }

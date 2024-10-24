@@ -128,13 +128,6 @@ public class Constants {
 
 			}
 			return 0;
-			
-	public static class UI{
-		public static class Buttons{
-			public static final int B_WIDTH_DEFAULT = 140;
-			public static final int B_HEIGHT_DEFAULT = 56;
-			public static final int B_WIDTH = (int)(B_WIDTH_DEFAULT * Game.SCALE);
-			public static final int B_HEIGHT = (int)(B_HEIGHT_DEFAULT * Game.SCALE);
 		}
 	}
 
@@ -218,24 +211,6 @@ public class Constants {
 				return 0;
 			}
 		}
-
-		public static int GetMaxHealth(int enemy_type) {
-			switch (enemy_type) {
-				case CRABBY:
-					return 10;
-				default:
-					return 1;
-			}
-		}
-
-		public static int GetEnemyDmg(int enemy_type) {
-			switch (enemy_type) {
-				case CRABBY:
-					return 15;
-				default:
-					return 0;
-			}
-		}
 	}
 
 	public static class Environment {
@@ -295,44 +270,25 @@ public class Constants {
 		public static final int ATTACK = 4;
 		public static final int HIT = 5;
 		public static final int DEAD = 6;
-<<<<<<< HEAD
 
-		public static int GetSpriteAmount(int player_action) {
-			switch (player_action) {
-			case DEAD:
-				return 8;
-			case RUNNING:
-				return 6;
-			case IDLE:
-				return 5;
-			case HIT:
-				return 4;
-			case JUMP:
-			case ATTACK:
-				return 3;
-			case FALLING:
-			default:
-				return 1;
-		
-		public static int GetSpriteAmount(int player_action) {
-			switch(player_action) {
-				//Cho biet co bao nhieu animation trong player_action
-				case DEAD:
-					return 8;
-				case RUNNING:
-					return 6;
-				case IDLE:
-					return 5;
-				case HIT:
-					return 4;
-				case JUMP: 
-				case ATTACK:
-					return 3;
-				case FALLING:
-				default:
-					return 1;
-			}
-		}
+//		public static int GetSpriteAmount(int player_action) {
+//			switch (player_action) {
+//			case DEAD:
+//				return 8;
+//			case RUNNING:
+//				return 6;
+//			case IDLE:
+//				return 5;
+//			case HIT:
+//				return 4;
+//			case JUMP:
+//			case ATTACK:
+//				return 3;
+//			case FALLING:
+//			default:
+//				return 1;
+//			}
+//		}
 	}
 
 }
