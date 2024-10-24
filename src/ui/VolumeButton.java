@@ -79,6 +79,7 @@ public class VolumeButton extends PauseButton {
 	public void resetBools() {
 		mouseOver = false; // Reset trạng thái chuột di chuyển nhưng không ấn (hover)
 		mousePressed = false; // Reset trạng thái ấn chuột
+	}
 
 	// Kiểm tra xem chuột có di chuyển qua nút không
 	public boolean isMouseOver() {

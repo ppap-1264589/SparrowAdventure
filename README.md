@@ -5,7 +5,29 @@
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ppap-1264589/SparrowAdventure?labelColor=7AA2E3&color=97E7E1">
 </div>
 
+<<<<<<< Updated upstream
 ## Đây là phần code bài tập lớn OOP lớp thầy Trần Nhật Hóa
+=======
+## Giới thiệu
+  "Sparrow Adventure" là một game RPG được phát triển trong bài tập lớn OOP của nhóm thuộc lớp của thầy Trần Nhật Hóa, ngôn ngữ chính sử dụng Java. Trong game, người chơi điều khiển Captain Jack Sparrow để khám phá các vùng đất, chiến đấu với kẻ thù và tìm kiếm kho báu Aztec. Game cung cấp các tính năng như di chuyển, tấn công, thu thập vật phẩm, quản lý kho đồ, và hệ thống tính điểm dựa trên số lượng kẻ thù bị hạ và kho báu thu thập được.
+## Thành viên
+  - Đỗ Xuân Hoàng
+  - Đoàn Xuân Công Đạt
+  - Nguyễn Tùng Dương
+  - Nguyễn Trung Hiếu
+  - Nguyễn Hoài Phương
+
+## Người đóng góp 
+<div align="center">
+  <a href="https://github.com/ppap-1264589/SparrowAdventure/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=ppap-1264589/SparrowAdventure" />
+  </a>
+</div>
+
+## Tính năng
+
+## Cài đặt và triển khai
+>>>>>>> Stashed changes
 
 
 Để mang một bộ code về chạy thử trên Eclipse, thực hiện các bước sau:
