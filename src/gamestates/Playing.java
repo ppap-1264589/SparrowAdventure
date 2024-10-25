@@ -54,9 +54,9 @@ public class Playing extends State implements Statemethods {
     //  |          |                       |          |
     //  |__________|_______________________|__________|
 
-    private boolean paused = false;
+    private boolean paused = false; //Luôn bắt đầu game ở trạng thái đang chơi
 
-    private int xLvlOffset;
+    private int xLvlOffset = 0;
     // khoang cach can thiet de tinh tien sao cho khung anh canh ve
     // thuc co toa do tu (x,y) se ve tu (0,0)
     // do screen chi hien thi tu (0,0)
@@ -97,10 +97,14 @@ public class Playing extends State implements Statemethods {
     public Playing(Game game) {
         super(game);
         initClasses();
-
+        
+        //Tải các resource liên quan đến background
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG);
         bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
         smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
+        
+        //Pick random vị trí xuất hiện có thể theo phương y cho mây nhỏ
+        //Đâu đấy khoảng 90 -> 190 theo phương y
         smallCloudsPos = new int[8];
         for (int i = 0; i < smallCloudsPos.length; i++)
             smallCloudsPos[i] = (int) (90 * Game.SCALE) + rnd.nextInt((int) (100 * Game.SCALE));
@@ -167,7 +171,6 @@ public class Playing extends State implements Statemethods {
         enemyManager = new EnemyManager(this);
         objectManager = new ObjectManager(this);
 
-
         pauseOverlay = new PauseOverlay(this);
         gameOverOverlay = new GameOverOverlay(this);
         levelCompletedOverlay = new LevelCompletedOverlay(this);
@@ -185,7 +188,7 @@ public class Playing extends State implements Statemethods {
 
     @Override
     public void update() {
-        if (paused)
+        if (paused) //Chỉ khi pause mới update pauseOverlay
             pauseOverlay.update();
         else if (lvlCompleted)
             levelCompletedOverlay.update();
@@ -255,27 +258,44 @@ public class Playing extends State implements Statemethods {
                 }
     }
 
-    private void checkCloseToBorder() {
-        int playerX = (int) player.getHitbox().x;
-        int diff = playerX - xLvlOffset;
 
+    /*
+     Để làm được Bigger Level, có moving level, phải có một giá trị xLvlOffset
+     đây chính là giá trị dùng để định vị vị trí (x, y) cần vẽ hoạt họa của lvl
+     xLvlOffset được tính như thế nào?
+     */
+    private void checkCloseToBorder() {
+    	//playerX là vị trí hiện tại của nhân vật, tính theo toàn bộ map
+        int playerX = (int) player.getHitbox().x;
+        
+        /*
+         xLvlOffset là giá trị tính từ vị trí biên bên trái (của map)
+         đến vị trí biên bên trái (đang vẽ trên màn hình)
+         
+         diff là sự sai lệch giữa vị trí x của nhân vật và vị trí biên bên trái
+         (đang vẽ trên màn hình)
+        */
+        int diff = playerX - xLvlOffset;
+        
         if (diff > rightBorder)
         	 // player is beyond the right border -> we need to move the lvls to the right
             xLvlOffset += diff - rightBorder;
         else if (diff < leftBorder)
         	// opposite to the one above
             xLvlOffset += diff - leftBorder;
-
+        
+        //Không được quá nhỏ hay quá lớn đến nỗi tràn ra cả khả năng xLvlOffset có thể xuất hiện
         xLvlOffset = Math.max(Math.min(xLvlOffset, maxLvlOffsetX), 0);
+        
         // Dieu nay de trong truong hop ma moi bat dau map hoac di den cuoi map
         // thi player se khong dung yen nua ma the te di chuyen
         // Noi cach khac coi nhu xoa bo vung trai vung phai
-        //de nhan vat co the cham bien cua MAP cung nhu screen
+        // de nhan vat co the cham bien cua MAP cung nhu screen
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
+        g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null); //Vẽ BackGround
 
         drawClouds(g);
         if (drawRain)
@@ -284,6 +304,8 @@ public class Playing extends State implements Statemethods {
         if (drawShip)
             g.drawImage(shipImgs[shipAni], (int) (100 * Game.SCALE) - xLvlOffset, (int) ((288 * Game.SCALE) + shipHeightDelta), (int) (78 * Game.SCALE), (int) (72 * Game.SCALE), null);
 
+        //xLvlOffset là giá trị tính từ vị trí biên bên trái (của map), đến vị trí biên bên trái (đang vẽ trên màn hình)
+        //Đây chính là giá trị mà các hoạt ảnh liên quan đến lvl sẽ phải chạy lùi theos
         levelManager.draw(g, xLvlOffset);
         objectManager.draw(g, xLvlOffset);
         enemyManager.draw(g, xLvlOffset);
@@ -291,10 +313,10 @@ public class Playing extends State implements Statemethods {
         objectManager.drawBackgroundTrees(g, xLvlOffset);
         drawDialogue(g, xLvlOffset);
 
-        if (paused) {
+        if (paused) { //Chỉ khi pause mới vẽ pauseOverlay
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
-            pauseOverlay.draw(g);
+            pauseOverlay.draw(g); //Vẽ Khung của trạng thái pause
         } else if (gameOver)
             gameOverOverlay.draw(g);
         else if (lvlCompleted)
@@ -304,12 +326,21 @@ public class Playing extends State implements Statemethods {
 
     }
 
+    /* Nhắc lại: xLvlOffset là giá trị tính từ vị trí biên bên trái (của map) đến vị trí biên bên trái (đang vẽ trên màn hình)
+     Để mây nhỏ di chuyển nhanh hơn mây to, thực chất là
+     Ta cho mây nhỏ phải bị "vẽ" lùi về phía sau với một vận tốc lớn hơn
+     Ở đây ta chọn vận tốc bị "vẽ" lùi về sau cho mây to là 0.3*xLvlOffset, với mây nhỏ là 0.7*xLvlOffset
+     Nếu không dùng đến tham số này, mây sẽ chỉ vẽ cố định tại một vị trí trong Panel (trông rất là dị)
+    
+     Tóm lại: ta lấy xLvlOffset làm hệ quy chiếu cho đám mây
+    */
+    
     private void drawClouds(Graphics g) {
         for (int i = 0; i < 4; i++)
-            g.drawImage(bigCloud, i * BIG_CLOUD_WIDTH - (int) (xLvlOffset * 0.3), (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
+            g.drawImage(bigCloud, i * BIG_CLOUD_WIDTH , (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
 
         for (int i = 0; i < smallCloudsPos.length; i++)
-            g.drawImage(smallCloud, SMALL_CLOUD_WIDTH * 4 * i - (int) (xLvlOffset * 0.7), smallCloudsPos[i], SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
+            g.drawImage(smallCloud, SMALL_CLOUD_WIDTH * 4 * i , smallCloudsPos[i], SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
     }
 
     public void setGameCompleted() {
@@ -388,8 +419,9 @@ public class Playing extends State implements Statemethods {
                 case KeyEvent.VK_SPACE:
                     player.setJump(true);
                     break;
-                case KeyEvent.VK_ESCAPE:
+                case KeyEvent.VK_ESCAPE: //Nhấn escape thì: đang dừng sẽ trở lại game
                     paused = !paused;
+                //Nút này quan trọng, đây sẽ nơi duy nhất để chuyển từ trạng thái pause sang unpause trong game
             }
     }
 
