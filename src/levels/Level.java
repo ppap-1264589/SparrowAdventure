@@ -101,7 +101,20 @@ public class Level {
 
 	private void calcLvlOffsets() {
 		lvlTilesWide = img.getWidth();
+		
+		/* |   |           |							|
+		 * |   |           |     						|  <----giới hạn của map
+		 * |   |           |     						|	
+		 *     ^           ^  	               ^
+		 *     |           |	               |
+		 *     |           |                 offset
+		 *     |           |   
+		 *     +------- phần hiển thị hiện tại
+		 */
+		//Số lượng tile lớn nhất có thể bị dôi ra
 		maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
+		
+		//Số pixel bị dư ra lớn nhất có thể xảy ra
 		maxLvlOffsetX = Game.TILES_SIZE * maxTilesOffset;
 	}
 
