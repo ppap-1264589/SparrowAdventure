@@ -276,7 +276,7 @@ public class Player extends Entity {
 		 */
         
         drawHitbox(g, lvlOffset);
-//		drawAttackBox(g, lvlOffset);
+		drawAttackBox(g, lvlOffset);
         drawUI(g);
     }
 
