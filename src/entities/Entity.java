@@ -80,6 +80,7 @@ public abstract class Entity {
 		g.drawRect((int) (attackBox.x - xLvlOffset), (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
 	}
 
+	//Hitbox cũng phải bị vẽ lùi với tham số xLvlOffset
 	protected void drawHitbox(Graphics g, int xLvlOffset) {
 		//Just for debugging the hitbox
 		g.setColor(Color.BLUE);
