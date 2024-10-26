@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import main.Game;
 import utilz.LoadSave;
 
+//Tác dụng nói chung: Thiết kế phần nạp đồ họa và vẽ đồ họa của level.
 public class LevelManager {
 
 	private Game game;
