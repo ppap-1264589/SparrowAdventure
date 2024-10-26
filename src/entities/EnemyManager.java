@@ -26,6 +26,7 @@ public class EnemyManager {
 
 	//Update các tình trạng vật lý của Emeny
 	//Nếu không có nhân vật nào Active, sẽ gán gamestate là Completed
+	//Hàm update này cần phải detect được tình trạng hiện tại của map đang dùng, thì mới update thông tin vật lý một cách phù hợp
 	public void update(int[][] lvlData) {
 		boolean isAnyActive = false;
 		for (Crabby c : currentLevel.getCrabs())

@@ -140,6 +140,10 @@ public class HelpMethods {
 			return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, lvlData);
 	}
 
+	/*
+	 * Check xem như thế nào là IsFloor ?
+	 * Khi điểm dưới cùng bên trái và điểm dưới cùng bên phải đều cùng là Solid
+	 */
 	public static boolean IsFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
 		if (!IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, lvlData))
 			if (!IsSolid(hitbox.x, hitbox.y + hitbox.height + 1, lvlData))

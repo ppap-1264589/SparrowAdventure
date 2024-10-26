@@ -23,7 +23,6 @@ public abstract class Enemy extends Entity {
 	protected float attackDistance = Game.TILES_SIZE;
 
 	
-	
 	protected boolean active = true;
 	protected boolean attackChecked;
 	protected int attackBoxOffsetX;
@@ -35,7 +34,7 @@ public abstract class Enemy extends Entity {
 
 		maxHealth = GetMaxHealth(enemyType);
 		currentHealth = maxHealth;
-		walkSpeed = Game.SCALE * 0.35f;
+		walkSpeed = Game.SCALE * 0.5f;
 	}
 
 	protected void updateAttackBox() {
@@ -57,6 +56,7 @@ public abstract class Enemy extends Entity {
 		this.attackBoxOffsetX = (int) (Game.SCALE * attackBoxOffsetX);
 	}
 
+	//Check xem hitbox (của Enemy nói chung) có chạm vào "đất" của lvlData hay không
 	protected void firstUpdateCheck(int[][] lvlData) {
 		if (!IsEntityOnFloor(hitbox, lvlData))
 			inAir = true;
@@ -71,7 +71,8 @@ public abstract class Enemy extends Entity {
 				hurt(maxHealth);
 		}
 	}
-
+	
+	//Phải không chạm "đất" hoặc "tường" thì mới bay nhảy được tiếp
 	protected void updateInAir(int[][] lvlData) {
 	    //System.out.println(fallSpeed);
         // Truong hop ma enemy dang in air thi can de no tiep dat
@@ -80,6 +81,8 @@ public abstract class Enemy extends Entity {
 			airSpeed += GRAVITY;
 		} else {
 			inAir = false;
+			
+			//Nhảy mạnh quá, đâm vào tường, thì không được đi xuyên tường
 			hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
 			tileY = (int) (hitbox.y / Game.TILES_SIZE);
 		}
@@ -88,10 +91,8 @@ public abstract class Enemy extends Entity {
 	protected void move(int[][] lvlData) {
 		float xSpeed = 0;
 
-		if (walkDir == LEFT)
-			xSpeed = -walkSpeed;
-		else
-			xSpeed = walkSpeed;
+		if (walkDir == LEFT) xSpeed = -walkSpeed;
+		else xSpeed = walkSpeed;
 
 		if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData))
 			if (IsFloor(hitbox, xSpeed, lvlData)) {
@@ -197,6 +198,7 @@ public abstract class Enemy extends Entity {
 		}
 	}
 
+	//Trường hợp kẻ địch đập vào tường thì phải quay ngược lại
 	protected void changeWalkDir() {
 		if (walkDir == LEFT)
 			walkDir = RIGHT;

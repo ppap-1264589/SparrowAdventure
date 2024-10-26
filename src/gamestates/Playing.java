@@ -207,6 +207,9 @@ public class Playing extends State implements Statemethods {
             levelManager.update();
             objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
             player.update();
+            
+            //Chúng ta cần có một cách gì đó để detect được info của map khi update các trạng thái vật lý của nhân vật trong game
+            //Do đó, cần truyền tham số levelManager.currentLevelData vào hàm update
             enemyManager.update(levelManager.getCurrentLevel().getLevelData());
             checkCloseToBorder();
             if (drawShip)
@@ -336,7 +339,6 @@ public class Playing extends State implements Statemethods {
     
      Tóm lại: ta lấy xLvlOffset làm hệ quy chiếu cho đám mây
     */
-    
     private void drawClouds(Graphics g) {
         for (int i = 0; i < 4; i++)
             g.drawImage(bigCloud, i * BIG_CLOUD_WIDTH , (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
