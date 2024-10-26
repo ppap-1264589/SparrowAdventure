@@ -198,7 +198,9 @@ public class Playing extends State implements Statemethods {
             gameOverOverlay.update();
         else if (playerDying)
             player.update();
-        else {
+        else { //Các trường hợp còn lại (khi game đang chạy), thì update các phần như levelManager, enemyManager
+        	//Nếu update các lớp này thì có tác dụng gì?
+        	//Sẽ gọi đến update các phần tương ứng trong một level: tình trạng vật lý của crabby, shark, ...
             updateDialogue();
             if (drawRain)
                 rain.update(xLvlOffset);
