@@ -47,7 +47,6 @@ public class Player extends Entity {
 
 	// Jumping / Gravity
 	private float airSpeed = 0f;   // Van toc khi nhay hoac roi tu do
-	private float gravity = 0.04f * Game.SCALE; // gia toc
 	private float jumpSpeed = -2.25f * Game.SCALE; // van toc ban dau khi nhay
 	private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 	// van toc roi xuong trong truong hop nhan vat nhay den cham noc
