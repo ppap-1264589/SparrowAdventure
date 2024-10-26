@@ -25,8 +25,7 @@ public class Crabby extends Enemy {
 	}
 
 	private void updateBehavior(int[][] lvlData, Playing playing) {
-		if (firstUpdate)
-			firstUpdateCheck(lvlData);
+		if (firstUpdate) firstUpdateCheck(lvlData);
 
 		if (inAir) {
 			inAirChecks(lvlData, playing);

@@ -57,6 +57,7 @@ public abstract class Enemy extends Entity {
 	}
 
 	//Check xem hitbox (của Enemy nói chung) có chạm vào "đất" của lvlData hay không
+	//Chưa chạm đất thì inAir = true
 	protected void firstUpdateCheck(int[][] lvlData) {
 		if (!IsEntityOnFloor(hitbox, lvlData))
 			inAir = true;
@@ -82,18 +83,23 @@ public abstract class Enemy extends Entity {
 		} else {
 			inAir = false;
 			
-			//Nhảy mạnh quá, đâm vào tường, thì không được đi xuyên tường
+			//Tiếp đất rồi khi phải tìm cách để Enemy luôn giữ trên đất
 			hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
 			tileY = (int) (hitbox.y / Game.TILES_SIZE);
 		}
 	}
 
+	// Nói chung là move enemy theo tọa độ x của nó
+	// Enemy sẽ chỉ đi sang trái, phải
 	protected void move(int[][] lvlData) {
 		float xSpeed = 0;
 
 		if (walkDir == LEFT) xSpeed = -walkSpeed;
 		else xSpeed = walkSpeed;
 
+		// Check theo tương tác giữa hitbox của Enemy và các thành phần của một level
+		// nếu Enemy còn chưa chạm tường và chưa rơi xuống đất, cứ đi tiếp
+		// Nếu chạm tường thì phải đảo hướng
 		if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData))
 			if (IsFloor(hitbox, xSpeed, lvlData)) {
 				hitbox.x += xSpeed;

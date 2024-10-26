@@ -103,6 +103,9 @@ public abstract class Entity {
 		return aniIndex;
 	}
 
+	//Nếu trạng thái của nhân vật thay đổi (cả Enemy và Player nói chung), chả hạn: từ RUNNING sang ATTACKING
+	//Thì thay đổi luôn biến trạng thái hiện tại.
+	//Bắt đầu vẽ lại kiểu hoạt ảnh mới tương ứng với state hiện tại, và gán biến đếm cho số ani đã chạy được về 0
 	protected void newState(int state) {
 		this.state = state;
 		aniTick = 0;
