@@ -12,11 +12,20 @@ import java.awt.geom.Rectangle2D;
 import main.Game;
 
 public abstract class Entity {
+	//Vị trí, kích thước vẽ trên màn hình
 	protected float x, y;
 	protected int width, height;
-	protected Rectangle2D.Float hitbox;  //Rectangle là một class đặc biệt để tạo hitbox cho nhân vật trong game
+	
+	//Rectangle là một class đặc biệt để tạo hitbox cho nhân vật trong game
+	protected Rectangle2D.Float hitbox;  
+	
+	
 	protected int aniTick, aniIndex;
+	
+	//Trạng thái hiện tại của một Entity
 	protected int state;
+	
+	
 	protected float airSpeed;
 	protected boolean inAir = false;
 	protected int maxHealth;

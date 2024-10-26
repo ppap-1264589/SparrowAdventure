@@ -18,15 +18,17 @@ public abstract class Enemy extends Entity {
 	protected int walkDir = LEFT;
 	protected int tileY;
 	
-	protected float attackDistance = Game.TILES_SIZE;
     // Tam danh
     // player ma trong khoang nay cua enemy thi enemy se tan cong player
+	protected float attackDistance = Game.TILES_SIZE;
+
 	
 	
 	protected boolean active = true;
 	protected boolean attackChecked;
 	protected int attackBoxOffsetX;
 
+	//Loại Enemy khởi tạo được sẽ dựa vào enemyType, có thể là Crabby, Shark, ...
 	public Enemy(float x, float y, int width, int height, int enemyType) {
 		super(x, y, width, height);
 		this.enemyType = enemyType;
@@ -165,6 +167,7 @@ public abstract class Enemy extends Entity {
 		attackChecked = true;
 	}
 
+	//Lưu ý rằng updateAnimationTick của Player và của Enemy sẽ khác nhau
 	protected void updateAnimationTick() {
 		aniTick++;
 		if (aniTick >= ANI_SPEED) {

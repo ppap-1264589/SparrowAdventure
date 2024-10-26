@@ -24,6 +24,8 @@ public class EnemyManager {
 		this.currentLevel = level;
 	}
 
+	//Update các tình trạng vật lý của Emeny
+	//Nếu không có nhân vật nào Active, sẽ gán gamestate là Completed
 	public void update(int[][] lvlData) {
 		boolean isAnyActive = false;
 		for (Crabby c : currentLevel.getCrabs())
@@ -48,6 +50,8 @@ public class EnemyManager {
 			playing.setLevelCompleted(true);
 	}
 
+	// Vẽ đồ họa tương ứng của các Enemy trong game
+	// Các nhân vật này cũng có tọa độ vẽ lấy xLvlOffset làm mốc chuẩn
 	public void draw(Graphics g, int xLvlOffset) {
 		drawCrabs(g, xLvlOffset);
 		drawPinkstars(g, xLvlOffset);
@@ -118,6 +122,10 @@ public class EnemyManager {
 			}
 	}
 
+	//Nạp các đồ họa của Enemy tương ứng
+	//Mảng gồm đồ họa của crabby, được nạp từ resource có tên là CRABBY_SPRITE qua hàm getSpriteAtlas vào trong hệ thống
+	//Ta biết rằng mảng này có 9 đồ họa theo phía ngang, 5 đồ họa cho phía dọc, nên nạp tham số 9, 5 vào
+	//Kích cỡ được nạp vào bảng crabbyArr[j][i] đúng bằng WIDTH_DEFAULT và HEIGHT_DEFAULT
 	private void loadEnemyImgs() {
 		crabbyArr = getImgArr(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 5, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
 		pinkstarArr = getImgArr(LoadSave.GetSpriteAtlas(LoadSave.PINKSTAR_ATLAS), 8, 5, PINKSTAR_WIDTH_DEFAULT, PINKSTAR_HEIGHT_DEFAULT);

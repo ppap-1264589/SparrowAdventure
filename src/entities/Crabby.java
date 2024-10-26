@@ -8,6 +8,7 @@ import gamestates.Playing;
 
 public class Crabby extends Enemy {
 
+	//(x, y) là vị trí mà Crabby spawn
 	public Crabby(float x, float y) {
 		super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
 		initHitbox(22, 19);
