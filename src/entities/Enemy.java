@@ -110,6 +110,7 @@ public abstract class Enemy extends Entity {
 		changeWalkDir();
 	}
 
+	//Chạy về phía nào của player?
 	protected void turnTowardsPlayer(Player player) {
 		if (player.hitbox.x > hitbox.x)
 			walkDir = RIGHT;
@@ -191,7 +192,7 @@ public abstract class Enemy extends Entity {
 					
 					/*
 					 * Khi Enemy hoàn thành các animation của Attack, 
-					 * nó sẽ idle khoảng một lúc (cụ thể là đúng một loop của animation idle
+					 * nó sẽ idle khoảng một lúc (cụ thể là đúng một loop cho animation idle)
 					 */
 					switch (state) {
 						case ATTACK, HIT -> state = IDLE;
