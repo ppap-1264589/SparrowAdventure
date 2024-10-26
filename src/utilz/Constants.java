@@ -131,17 +131,21 @@ public class Constants {
 		}
 	}
 
+	//Các biến liên quan đến Enemy
 	public static class EnemyConstants {
+		//Dấu hiệu nhận biết loại nhân vật
 		public static final int CRABBY = 0;
 		public static final int PINKSTAR = 1;
 		public static final int SHARK = 2;
 
+		//Dấu hiệu nhận biết loại trạng thái
 		public static final int IDLE = 0;
 		public static final int RUNNING = 1;
 		public static final int ATTACK = 2;
 		public static final int HIT = 3;
 		public static final int DEAD = 4;
 
+		//Kích cỡ default theo pixel
 		public static final int CRABBY_WIDTH_DEFAULT = 72;
 		public static final int CRABBY_HEIGHT_DEFAULT = 32;
 		public static final int CRABBY_WIDTH = (int) (CRABBY_WIDTH_DEFAULT * Game.SCALE);
@@ -163,6 +167,8 @@ public class Constants {
 		public static final int SHARK_DRAWOFFSET_X = (int) (8 * Game.SCALE);
 		public static final int SHARK_DRAWOFFSET_Y = (int) (6 * Game.SCALE);
 
+		//tìm giá trị của số hoạt ảnh có thể xuất hiện, theo nhân vật cụ thể và trạng thái cụ thể
+		//Chả hạn, ở trạng thái idle, nếu nhân vật đang là crabby thì số hoạt ảnh cần phải vẽ là 9 hoạt ảnh
 		public static int GetSpriteAmount(int enemy_type, int enemy_state) {
 			switch (enemy_state) {
 
