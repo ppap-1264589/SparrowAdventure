@@ -85,6 +85,7 @@ public abstract class Enemy extends Entity {
 			
 			//Tiếp đất rồi khi phải tìm cách để Enemy luôn giữ trên đất
 			hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+			//Lấy thông tin về Tile hiện tại để check canSeePlayer
 			tileY = (int) (hitbox.y / Game.TILES_SIZE);
 		}
 	}
@@ -99,13 +100,13 @@ public abstract class Enemy extends Entity {
 
 		// Check theo tương tác giữa hitbox của Enemy và các thành phần của một level
 		// nếu Enemy còn chưa chạm tường và chưa rơi xuống đất, cứ đi tiếp
-		// Nếu chạm tường thì phải đảo hướng
 		if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData))
 			if (IsFloor(hitbox, xSpeed, lvlData)) {
 				hitbox.x += xSpeed;
 				return;
 			}
-
+		
+		// Nếu chạm tường thì phải đảo hướng
 		changeWalkDir();
 	}
 
@@ -116,6 +117,10 @@ public abstract class Enemy extends Entity {
 			walkDir = LEFT;
 	}
 
+	/* Giữa player và Enemy có hai loại tầm nhìn
+	 * isSightClear: Không có vật cản ở giữa
+	 * isInRange: Trong tầm nhìn khiến cho enemy bị "kích động" và tiến gần đến player thay vì đi xa ra
+	 */
 	protected boolean canSeePlayer(int[][] lvlData, Player player) {
 		//Kiem tra xem enemy va player co cung hang khong
 		int playerTileY = (int) (player.getHitbox().y / Game.TILES_SIZE);
@@ -183,10 +188,14 @@ public abstract class Enemy extends Entity {
 			if (aniIndex >= GetSpriteAmount(enemyType, state)) {
 				if (enemyType == CRABBY || enemyType == SHARK) {
 					aniIndex = 0;
-
+					
+					/*
+					 * Khi Enemy hoàn thành các animation của Attack, 
+					 * nó sẽ idle khoảng một lúc (cụ thể là đúng một loop của animation idle
+					 */
 					switch (state) {
-					case ATTACK, HIT -> state = IDLE;
-					case DEAD -> active = false;
+						case ATTACK, HIT -> state = IDLE;
+						case DEAD -> active = false;
 					}
 				} else if (enemyType == PINKSTAR) {
 					if (state == ATTACK)

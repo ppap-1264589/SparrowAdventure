@@ -38,8 +38,11 @@ public class Crabby extends Enemy {
 					inAir = true;
 				break;
 			case RUNNING:
+				//Chỉ khi nhìn thấy player mới turn_towards
+				//Không phải tự nhiên mà đang running lại turn_towards ngay
 				if (canSeePlayer(lvlData, playing.getPlayer())) {
 					turnTowardsPlayer(playing.getPlayer());
+					//Nếu đủ gần thì chiến luôn
 					if (isPlayerCloseForAttack(playing.getPlayer()))
 						newState(ATTACK);
 				}

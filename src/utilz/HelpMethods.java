@@ -161,6 +161,7 @@ public class HelpMethods {
 			return IsAllTilesClear(firstXTile, secondXTile, yTile, lvlData);
 	}
 
+	//Giữa hai tiles không có vật cản cứng
 	public static boolean IsAllTilesClear(int xStart, int xEnd, int y, int[][] lvlData) {
 		for (int i = 0; i < xEnd - xStart; i++)
 			if (IsTileSolid(xStart + i, y, lvlData))
@@ -168,11 +169,13 @@ public class HelpMethods {
 		return true;
 	}
 
+	//Walkable được hết tức là ở giữa hai tile xStart và xEnd thỏa mãn hai điều kiện
 	public static boolean IsAllTilesWalkable(int xStart, int xEnd, int y, int[][] lvlData) {
+		//Điều kiện 1: Giữa chúng không có vật cản
 		if (IsAllTilesClear(xStart, xEnd, y, lvlData))
 			for (int i = 0; i < xEnd - xStart; i++) {
 				
-				// Truong hop ma co mot ho o giua player va enemy
+				// Điều kiện 2: Giữa chúng không có cái hố nào
 				if (!IsTileSolid(xStart + i, y + 1, lvlData))
 					return false;
 			}
@@ -186,6 +189,9 @@ public class HelpMethods {
 	// playerBox.width;
 	// One of them will be true, because of prior checks.
 
+	//Check xem có vật cản ở giữa hitbox của player và của enemy hay không
+	//Người ta phải chia các pixel thành các tiles nhỏ hơn để dễ check việc này (gameloop sẽ mượt hơn)
+	//firstXTile là tile hiện tại dành cho đối tượng thứ nhất, second là cho đối tượng thứ 2
 	public static boolean IsSightClear(int[][] lvlData, Rectangle2D.Float enemyBox, Rectangle2D.Float playerBox, int yTile) {
 		int firstXTile = (int) (enemyBox.x / Game.TILES_SIZE);
 
@@ -195,6 +201,7 @@ public class HelpMethods {
 		else
 			secondXTile = (int) ((playerBox.x + playerBox.width) / Game.TILES_SIZE);
 
+		//Check cả hai trường hợp: đối tượng thứ nhất đứng trước (hoặc đứng sau) đối tượng thứ hai xem có vật cản nào không
 		if (firstXTile > secondXTile)
 			return IsAllTilesWalkable(secondXTile, firstXTile, yTile, lvlData);
 		else
