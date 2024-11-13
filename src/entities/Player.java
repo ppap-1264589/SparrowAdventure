@@ -99,12 +99,16 @@ public class Player extends Entity {
 
     private final PlayerCharacter playerCharacter;
 
+    /*
+     * Khởi tạo các giá trị ban đầu cho nhân vật
+     * Default: maxHealth = 100
+     */
     public Player(PlayerCharacter playerCharacter, Playing playing) {
         super(0, 0, (int) (playerCharacter.spriteW * Game.SCALE), (int) (playerCharacter.spriteH * Game.SCALE));
         this.playerCharacter = playerCharacter;
         this.playing = playing;
         this.state = IDLE;
-        this.maxHealth = 100;
+        this.maxHealth = 1000000000;
         this.currentHealth = maxHealth;
         this.walkSpeed = Game.SCALE * 1.0f;
         animations = LoadSave.loadAnimations(playerCharacter);
