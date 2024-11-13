@@ -310,7 +310,7 @@ public class Playing extends State implements Statemethods {
             g.drawImage(shipImgs[shipAni], (int) (100 * Game.SCALE) - xLvlOffset, (int) ((288 * Game.SCALE) + shipHeightDelta), (int) (78 * Game.SCALE), (int) (72 * Game.SCALE), null);
 
         //xLvlOffset là giá trị tính từ vị trí biên bên trái (của map), đến vị trí biên bên trái (đang vẽ trên màn hình)
-        //Đây chính là giá trị mà các hoạt ảnh liên quan đến lvl sẽ phải chạy lùi theos
+        //Đây chính là giá trị mà các hoạt ảnh liên quan đến lvl sẽ phải chạy lùi theo
         levelManager.draw(g, xLvlOffset);
         objectManager.draw(g, xLvlOffset);
         enemyManager.draw(g, xLvlOffset);
