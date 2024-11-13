@@ -196,17 +196,25 @@ public class Constants {
 
 		}
 
+		/*
+		 * Health của quái
+		 * Default: Crabby = 50, Pinkstar = Shark = 25
+		 */
 		public static int GetMaxHealth(int enemy_type) {
 			switch (enemy_type) {
 			case CRABBY:
-				return 50;
+				return 1;
 			case PINKSTAR, SHARK:
-				return 25;
+				return 1;
 			default:
 				return 1;
 			}
 		}
 
+		/*
+		 * Damage của quái
+		 * Default: Crabby = 15, Pinkstar = 20, Shark = 25
+		 */
 		public static int GetEnemyDmg(int enemy_type) {
 			switch (enemy_type) {
 			case CRABBY:
