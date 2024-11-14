@@ -286,6 +286,7 @@ public class Constants {
 		public static final int DOWN = 3;
 	}
 
+	//Giá trị tương ứng với hàng hiệu ứng được vẽ trong resource player_sprites.png
 	public static class PlayerConstants {
 		public static final int IDLE = 0;
 		public static final int RUNNING = 1;

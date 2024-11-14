@@ -15,6 +15,7 @@ public class Crabby extends Enemy {
 		//Hitbox của Crabby là 22x19
 		initHitbox(22, 19);
 		
+		//AttackBox của Craaby là 30pixel về bên trái và bên phải -> tổng độ dài AttackBox = 22+30+30 = 82
 		initAttackBox(82, 19, 30);
 	}
 
@@ -55,8 +56,13 @@ public class Crabby extends Enemy {
 			case ATTACK:
 				if (aniIndex == 0)
 					attackChecked = false;
-				// Kiem tra attack chi kiem tra 1 lan va ta chon
-                // animation thu aniIndex de kiem tra
+				/*
+				 Kiem tra attack chi kiem tra 1 lan va ta chon
+                 animation thu aniIndex de kiem tra 
+                 
+				 checkPlayerHit() chỉ xảy ra đúng 1 lần, do sau khi thực hiện hàm đó, attackChecked = true
+				 aniIndex == 3 -> đúng thời điểm con cua búng càng
+				 */
 				if (aniIndex == 3 && !attackChecked)
 					checkPlayerHit(attackBox, playing.getPlayer());
 				break;

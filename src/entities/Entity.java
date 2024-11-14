@@ -75,6 +75,7 @@ public abstract class Entity {
 			hitbox.x += xSpeed * speedMulti;
 	}
 
+	//AttackHitbox cũng phải bị vẽ lùi với tham số xLvlOffset
 	protected void drawAttackBox(Graphics g, int xLvlOffset) {
 		g.setColor(Color.red);
 		g.drawRect((int) (attackBox.x - xLvlOffset), (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
@@ -82,7 +83,6 @@ public abstract class Entity {
 
 	//Hitbox cũng phải bị vẽ lùi với tham số xLvlOffset
 	protected void drawHitbox(Graphics g, int xLvlOffset) {
-		//Just for debugging the hitbox
 		g.setColor(Color.BLUE);
 		g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
 	}

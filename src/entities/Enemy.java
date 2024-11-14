@@ -21,7 +21,6 @@ public abstract class Enemy extends Entity {
     // Tam danh
     // player ma trong khoang nay cua enemy thi enemy se tan cong player
 	protected float attackDistance = Game.TILES_SIZE;
-
 	
 	protected boolean active = true;
 	protected boolean attackChecked;
@@ -37,6 +36,8 @@ public abstract class Enemy extends Entity {
 		walkSpeed = Game.SCALE * 0.5f;
 	}
 
+	
+	 //Tọa độ x của AttackBox thực sự được vẽ ra bằng tọa độ x của hitbox nhân vật ban đầu, trừ đi phần offset
 	protected void updateAttackBox() {
 		attackBox.x = hitbox.x - attackBoxOffsetX;
 		attackBox.y = hitbox.y;
@@ -155,6 +156,11 @@ public abstract class Enemy extends Entity {
 		return false;
 	}
 
+	/*
+	 * Quái vật nhận sát thương
+	 * Máu = 0 thì phát tín hiệu state hiện tại = DEAD
+	 * Máu khác 0 thì phát tín hiệu state hiện tại = HIT
+	 */
 	public void hurt(int amount) {
 		currentHealth -= amount;
 		if (currentHealth <= 0)
@@ -193,6 +199,8 @@ public abstract class Enemy extends Entity {
 					/*
 					 * Khi Enemy hoàn thành các animation của Attack, 
 					 * nó sẽ idle khoảng một lúc (cụ thể là đúng một loop cho animation idle)
+					 * 
+					 * Nếu Enemy được xác nhận là DEAD qua tín hiệu state == DEAD, active = false, coi như chúng ta không còn update quái vật này trong game nữa
 					 */
 					switch (state) {
 						case ATTACK, HIT -> state = IDLE;
@@ -232,7 +240,6 @@ public abstract class Enemy extends Entity {
 		airSpeed = 0;
 
 		pushDrawOffset = 0;
-
 	}
 
 	public int flipX() {

@@ -55,17 +55,20 @@ public class Player extends Entity {
 	//Thanh HP
     private BufferedImage statusBarImg;
 
+    //Các thông số đại diện cho cả healthBar và powerBar
     private int statusBarWidth = (int) (192 * Game.SCALE);
     private int statusBarHeight = (int) (58 * Game.SCALE);
     private int statusBarX = (int) (10 * Game.SCALE);
     private int statusBarY = (int) (10 * Game.SCALE);
 
+    //kích cỡ riêng, vị trí riêng cho healthBar
     private int healthBarWidth = (int) (150 * Game.SCALE);
     private int healthBarHeight = (int) (4 * Game.SCALE);
     private int healthBarXStart = (int) (34 * Game.SCALE);
     private int healthBarYStart = (int) (14 * Game.SCALE);
     private int healthWidth = healthBarWidth;
 
+    //kích cỡ riêng, vị trí riêng cho powerBar
     private int powerBarWidth = (int) (104 * Game.SCALE);
     private int powerBarHeight = (int) (2 * Game.SCALE);
     private int powerBarXStart = (int) (44 * Game.SCALE);
@@ -126,10 +129,14 @@ public class Player extends Entity {
 
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (35 * Game.SCALE), (int) (20 * Game.SCALE));
-        //cast int để không bị lỗi collision liên tục với mặt đất hoặc bờ tường
+      //cast int để không bị lỗi collision liên tục với mặt đất hoặc bờ tường
         resetAttackBox();
     }
 
+    /*
+     * Update HealthBar trước khi check xem currentHealth có = 0 hay không
+     * Nếu không sẽ xảy ra hiện tượng: healthBar chưa về 0 hẳn nhưng đã playing.setGameOver(true)
+     */
     public void update() {
         updateHealthBar();
         updatePowerBar();
@@ -224,6 +231,10 @@ public class Player extends Entity {
     }
 
     // Neu enemy trong tam danh nay thi enemies se chiu damage
+    /*
+     * Quay sang phải -> Đặt AttackHitbox cũng về bên phải
+     * Quay sang trái -> Đặt AttackHitbox cũng về bên trái
+     */
     private void setAttackBoxOnRightSide() {
         attackBox.x = hitbox.x + hitbox.width - (int) (Game.SCALE * 5);
     }
@@ -249,7 +260,7 @@ public class Player extends Entity {
         attackBox.y = hitbox.y + (Game.SCALE * 10);
     }
 
-    // 	Luong mau con lai ti le bao nhieu voi thanh mau ban dau
+    // Luong mau con lai ti le bao nhieu voi thanh mau ban dau
  	// de render cho can doi
     private void updateHealthBar() {
         healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
@@ -266,7 +277,10 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g, int lvlOffset) {
-        g.drawImage(animations[playerCharacter.getRowIndex(state)][aniIndex], (int) (hitbox.x - playerCharacter.xDrawOffset) - lvlOffset + flipX, (int) (hitbox.y - playerCharacter.yDrawOffset + (int) (pushDrawOffset)), width * flipW, height, null);
+        g.drawImage(animations[playerCharacter.getRowIndex(state)][aniIndex], 
+        		(int) (hitbox.x - playerCharacter.xDrawOffset) - lvlOffset + flipX, 
+        		(int) (hitbox.y - playerCharacter.yDrawOffset + (int) (pushDrawOffset)), 
+        		width * flipW, height, null);
         /*
 		 Bước 1: vẽ hoạt ảnh nhân vật
 		 Ta cần xác định vị trí bắt đầu vẽ hoạt ảnh từ trị ví của hitbox
@@ -276,10 +290,16 @@ public class Player extends Entity {
 		 hitbox.y - ydrawoffset là vị trí y đầu tiên để vẽ hoạt ảnh
 		 độ lớn của hoạt ảnh này là (width, height)
 		 đương nhiên, width và height ở đây tương ứng là SUB_WIDTH * SCALE và SUB_HEIGHT * SCALE được truyền vào thông qua constructor
+		 
+		  
+       	 Hiệu chỉnh việc lật ảnh của Player tương tự như của Crabby
+       	 Do ảnh gốc của Player là đang đứng về bên phải -> nếu đang cần nhân vật đi sang trái, thì lật ngược phần ảnh cần vẽ lại
+       	 Cài đặt ở trong hàm updatePos
 		 */
         
-        drawHitbox(g, lvlOffset);
-		drawAttackBox(g, lvlOffset);
+//      drawHitbox(g, lvlOffset);
+//		drawAttackBox(g, lvlOffset);
+        
         drawUI(g);
     }
 
@@ -287,11 +307,11 @@ public class Player extends Entity {
         // Background ui
         g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
 
-        // Health bar
+        // Vị trí được vẽ ra "thực sự" của healthBar khi coi tọa độ vẽ của statusBar làm gốc
         g.setColor(Color.red);
         g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
 
-        // Power Bar
+        // Vị trí được vẽ ra "thực sự" của powerBar khi coi tọa độ vẽ của statusBar làm gốc
         g.setColor(Color.yellow);
         g.fillRect(powerBarXStart + statusBarX, powerBarYStart + statusBarY, powerWidth, powerBarHeight);
     }
@@ -348,6 +368,7 @@ public class Player extends Entity {
             return;
         }
 
+        //Đảm bảo rằng tại thời điểm tấn công, nhân vật đang có animation là vung kiếm
         if (attacking) {
             state = ATTACK;
             if (startAni != ATTACK) {
@@ -544,6 +565,10 @@ public class Player extends Entity {
         powerAttackTick = 0;
         powerValue = powerMaxValue;
 
+        /*
+         * Dù nhân vật có thể DEAD ở vị trí nào trên map trước đó đi chăng nữa, vị trí đứng của nhân vật ban đầu sau khi gameover
+         * Vẫn phải giữ nguyên là vị trí đứng khi khởi tạo nhân vật ban đầu
+         */
         hitbox.x = x;
         hitbox.y = y;
         resetAttackBox();

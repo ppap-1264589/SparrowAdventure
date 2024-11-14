@@ -218,3 +218,9 @@ public class HelpMethods {
 			return IsAllTilesWalkable(firstXTile, secondXTile, yTile, lvlData);
 	}
 }
+
+
+/*
+ * Đây là những hàm mà mình có thể dùng được ở bất cứ đâu!
+ * Nên được đặt trong một package riêng, một class riêng
+ */
