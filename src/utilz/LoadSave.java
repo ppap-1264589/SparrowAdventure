@@ -111,4 +111,8 @@ public class LoadSave {
 
         return imgs;
     }
+    /*
+     * Các level được nạp vào phải được sorted.
+     * Lưu ý rằng, kích cỡ để tạo một level là 14 theo chiều dọc, tối thiểu 26 theo chiều rộng
+     */
 }

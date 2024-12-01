@@ -62,13 +62,18 @@ FPS\--------|-------------------------------|---------------------------|
         initClasses();
         gamePanel = new GamePanel(this);
         new GameWindow(gamePanel);
-        
     	/*Tác dụng chính là để gamePanel tập trung vào việc 
 		xử lý các sự kiện từ input
 		Nếu bỏ hàm này đi thì chương trình 
 		sẽ không nhận input (?)
 		*/
         gamePanel.requestFocusInWindow();
+        
+        
+        //Tác dụng: Để game nhận input từ mouse và keyboard ngay lập tức từ khi khởi tạo game
+        gamePanel.setFocusable(true);
+        gamePanel.requestFocus();
+        
 	
         
         //gameloop should be the last after all!

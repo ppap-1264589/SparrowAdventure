@@ -269,8 +269,10 @@ public class ObjectManager {
 	            if (gc.getObjType() == BARREL) // Nếu thùng chứa là barrel thì type = 1
 	                type = 1;
 	            // Vẽ thùng chứa với animation tương ứng
-	            g.drawImage(containerImgs[type][gc.getAniIndex()], (int) (gc.getHitbox().x - gc.getxDrawOffset() - xLvlOffset), (int) (gc.getHitbox().y - gc.getyDrawOffset()), CONTAINER_WIDTH,
-	                    CONTAINER_HEIGHT, null);
+	            g.drawImage(containerImgs[type][gc.getAniIndex()], 
+	            		(int) (gc.getHitbox().x - gc.getxDrawOffset() - xLvlOffset), 
+	            		(int) (gc.getHitbox().y - gc.getyDrawOffset()), 
+	            		CONTAINER_WIDTH, CONTAINER_HEIGHT, null);
 	        }
 	}
 	

@@ -487,6 +487,9 @@ public class Playing extends State implements Statemethods {
         else if (gameCompleted)
             gameCompletedOverlay.mouseMoved(e);
     }
+    /* Tùy theo trạng thái của Playing: gameOver, levelCompleted, paused, 
+     * thì mouseMoved, mouseReleased sẽ được hiểu theo các cách khác nhau
+     * */
 
     public void setLevelCompleted(boolean levelCompleted) {
         game.getAudioPlayer().lvlCompleted();

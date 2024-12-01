@@ -101,6 +101,7 @@ public class Level {
 	//Dựa theo màu của greenValue trong lvlData, mình sẽ biết rằng Enemy mình đang nạp vào là Enemy nào
 	//Nếu GreenValue == CRABBY(enum), thì vector ArrayList<Crabby> sẽ được add thêm một con crabby nữa 
 	//Cụ thể là được add ở cái tile có tọa độ (x, y) trong game
+	//100 -> PlayerSpawn
 	private void loadEntities(int greenValue, int x, int y) {
 		switch (greenValue) {
 			case CRABBY -> crabs.add(new Crabby(x * Game.TILES_SIZE, y * Game.TILES_SIZE));

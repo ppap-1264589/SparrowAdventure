@@ -43,7 +43,7 @@ public class Crabby extends Enemy {
 				//Không phải tự nhiên mà đang running lại turn_towards ngay
 				if (canSeePlayer(lvlData, playing.getPlayer())) {
 					turnTowardsPlayer(playing.getPlayer());
-					//Nếu đủ gần thì chiến luôn
+					//Chỉ khi turnToward đủ gần rồi mới chiến
 					if (isPlayerCloseForAttack(playing.getPlayer()))
 						newState(ATTACK);
 				}
