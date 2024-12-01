@@ -440,7 +440,6 @@ public class Playing extends State implements Statemethods {
                     player.setRight(false);
                     break;
                 case KeyEvent.VK_SPACE:
-//                    player.resetJump();
                     break;
             }
     }

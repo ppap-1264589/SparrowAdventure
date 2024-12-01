@@ -173,6 +173,7 @@ public class ObjectManager {
 		return absValue <= Game.TILES_SIZE * 5; // Nếu khoảng cách <= 5 ô gạch thì trả về true
 	}
 	
+	// Cần kiểm tra các điều kiện cơ bản để xem, quả pháo khi nào thì bắn? khi nào thì không bắn?
 	private void updateCannons(int[][] lvlData, Player player) {
 		for (Cannon c : currentLevel.getCannons()) {
 			if (!c.doAnimation)

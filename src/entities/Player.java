@@ -473,7 +473,6 @@ public class Player extends Entity {
         playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
         inAir = true;
         airSpeed = jumpSpeed;
-        System.out.println(jumpCnt);
     }
     
     private void updateXPos(float xSpeed) {
@@ -609,11 +608,10 @@ public class Player extends Entity {
     public void powerAttack() {
         if (powerAttackActive)
             return;
-        if (powerValue >= 60) {
+        if (powerValue >= 40) {
             powerAttackActive = true;
-            changePower(-60);
+            changePower(-40);
         }
 
     }
-
 }

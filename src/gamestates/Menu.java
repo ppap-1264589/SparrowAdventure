@@ -88,11 +88,6 @@ public class Menu extends State implements Statemethods {
             if (isIn(e, mb)) {
                 if (mb.isMousePressed())
                     mb.applyGamestate();
-            	/*
-            	 * Giả sử mình click vào nút xong lại kéo chuột ra bên ngoài nút
-            	 * Thì hệ thống sẽ không tính là mình "đã click"
-            	 * Chỉ coi là bấm nhầm và không thực hiện thêm thao tác
-            	 */
                 if (mb.getState() == Gamestate.PLAYING)
                     game.getAudioPlayer().setLevelSong(game.getPlaying().getLevelManager().getLevelIndex());
                 break;
@@ -101,6 +96,11 @@ public class Menu extends State implements Statemethods {
         }
         resetButtons(); //Release xong thì phải trả lại trạng thái cho nút
     }
+	/*
+	 * Giả sử mình click vào nút xong lại kéo chuột ra bên ngoài nút
+	 * Thì hệ thống sẽ không tính là mình "đã click"
+	 * Chỉ coi là bấm nhầm và không thực hiện thêm thao tác
+	 */
 
     private void resetButtons() {
         for (MenuButton mb : buttons)
