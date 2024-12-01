@@ -421,7 +421,7 @@ public class Playing extends State implements Statemethods {
                     player.setRight(true);
                     break;
                 case KeyEvent.VK_SPACE:
-                    player.setJump(true);
+                    player.addJump(1);
                     break;
                 case KeyEvent.VK_ESCAPE: //Nhấn escape thì: đang dừng sẽ trở lại game
                     paused = !paused;
@@ -440,7 +440,7 @@ public class Playing extends State implements Statemethods {
                     player.setRight(false);
                     break;
                 case KeyEvent.VK_SPACE:
-                    player.setJump(false);
+//                    player.resetJump();
                     break;
             }
     }

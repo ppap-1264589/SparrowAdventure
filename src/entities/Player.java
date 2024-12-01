@@ -20,7 +20,8 @@ public class Player extends Entity {
 
     private BufferedImage[][] animations;
     private boolean moving = false, attacking = false;
-    private boolean left, right, jump;
+    private boolean left, right;
+    private int jumpCnt;
     
     //CHECK COLLISION, người ta nạp lvlData vào lớp Player để tiện check Collision hơn
     //(có vẻ) đây là cách dễ nhất để check collision giữa một nhân vật và map
@@ -114,6 +115,7 @@ public class Player extends Entity {
         this.maxHealth = 1000000000;
         this.currentHealth = maxHealth;
         this.walkSpeed = Game.SCALE * 1.0f;
+        this.jumpCnt = 0;
         animations = LoadSave.loadAnimations(playerCharacter);
         statusBarImg = LoadSave.GetSpriteAtlas(LoadSave.STATUS_BAR);
         initHitbox(playerCharacter.hitboxW, playerCharacter.hitboxH);
@@ -397,14 +399,25 @@ public class Player extends Entity {
 
     private void updatePos() {
         moving = false;
+        
+        if (jumpCnt == 1) {	//First Jump
+        	jump();
+        	jumpCnt = 2;
+        }
+        if (jumpCnt == 3 && inAir) { //Second Jump on air
+        	jump();
+        	jumpCnt = 4;
+        }
+        
+        if (!inAir && IsEntityOnFloor(hitbox, lvlData)) {
+           	jumpCnt = 0; 
+        }
 
-        if (jump)
-            jump();
-
-        if (!inAir)
+        if (!inAir) {
             if (!powerAttackActive)
                 if ((!left && !right) || (right && left))
                     return;
+        }
 
         float xSpeed = 0;
 
@@ -430,10 +443,12 @@ public class Player extends Entity {
             xSpeed *= 3;
         }
 
-        if (!inAir)
-            if (!IsEntityOnFloor(hitbox, lvlData))
+        if (!inAir) {
+            if (!IsEntityOnFloor(hitbox, lvlData)) {
                 inAir = true;
-
+            }
+        }
+       
         if (inAir && !powerAttackActive) {
             if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
                 hitbox.y += airSpeed;
@@ -455,11 +470,10 @@ public class Player extends Entity {
     }
 
     private void jump() {
-        if (inAir)
-            return;
         playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
         inAir = true;
         airSpeed = jumpSpeed;
+        System.out.println(jumpCnt);
     }
     
     private void updateXPos(float xSpeed) {
@@ -549,8 +563,12 @@ public class Player extends Entity {
         this.right = right;
     }
 
-    public void setJump(boolean jump) {
-        this.jump = jump;
+    public void addJump(int value) {
+        this.jumpCnt = this.jumpCnt += value;
+    }
+    
+    public void resetJump(int value) {
+    	this.jumpCnt = value;
     }
 
     public void resetAll() {
