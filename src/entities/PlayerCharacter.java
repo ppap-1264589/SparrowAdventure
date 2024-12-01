@@ -18,7 +18,11 @@ public enum PlayerCharacter {
     SOLDIER(6, 8, 8, 8, 6, 4, 4,
             0, 1, 1, 1, 2, 5, 6,
             LoadSave.PLAYER_SOLDIER, 7, 8, 100, 100,
-            12, 18, 44, 39);
+            12, 18, 44, 39),
+   	LABUBU(5, 6, 3, 1, 3, 4, 8,
+   			0, 1, 2, 3, 4, 5, 6,
+            LoadSave.PLAYER_LABUBU, 7, 8, 64, 40,
+            20, 27, 21, 4);
 
 
     public int spriteA_IDLE, spriteA_RUNNING, spriteA_JUMP, spriteA_FALLING, spriteA_ATTACK, spriteA_HIT, spriteA_DEAD;
