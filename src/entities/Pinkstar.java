@@ -1,6 +1,8 @@
 package entities;
 
 import static utilz.Constants.EnemyConstants.*;
+import static utilz.Constants.EnemyConstants.GetSpriteAmount;
+import static utilz.Constants.ANI_SPEED;
 import static utilz.Constants.Dialogue.*;
 import static utilz.HelpMethods.CanMoveHere;
 import static utilz.HelpMethods.IsFloor;
@@ -35,7 +37,7 @@ public class Pinkstar extends Enemy {
 			switch (state) {
 			case IDLE:
 				preRoll = true;
-				if (tickAfterRollInIdle >= 120) {
+				if (tickAfterRollInIdle >= 60) {
 					if (IsFloor(hitbox, lvlData))
 						newState(RUNNING);
 					else
@@ -64,11 +66,32 @@ public class Pinkstar extends Enemy {
 				break;
 			case HIT:
 				if (aniIndex <= GetSpriteAmount(enemyType, state) - 2)
-					pushBack(pushBackDir, lvlData, 2f);
+					pushBack(pushBackDir, lvlData, 0.75f);
 				updatePushBackDrawOffset();
-				tickAfterRollInIdle = 120;
+				tickAfterRollInIdle = 60;
 
 				break;
+			}
+		}
+	}
+	
+	@Override
+	protected void updateAnimationTick() {
+		aniTick++;
+		if (aniTick >= ANI_SPEED) {
+			aniTick = 0;
+			aniIndex++;
+			if (aniIndex >= GetSpriteAmount(enemyType, state)) {
+				if (state == ATTACK)
+					aniIndex = 3;
+				else {
+					aniIndex = 0;
+					if (state == HIT) {
+						state = IDLE;
+
+					} else if (state == DEAD)
+						active = false;
+				}
 			}
 		}
 	}

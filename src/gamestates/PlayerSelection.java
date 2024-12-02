@@ -105,10 +105,8 @@ public class PlayerSelection extends State implements Statemethods {
 
         if (isIn(e, playButton)) {
             if (playButton.isMousePressed()) {
-
                 game.getPlaying().setPlayerCharacter(characterAnimations[playerIndex].getPc());
                 game.getAudioPlayer().setLevelSong(game.getPlaying().getLevelManager().getLevelIndex());
-
                 playButton.applyGamestate();
             }
 

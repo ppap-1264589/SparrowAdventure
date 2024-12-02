@@ -1,7 +1,9 @@
 package entities;
 
 import static utilz.Constants.EnemyConstants.*;
+import static utilz.Constants.EnemyConstants.GetSpriteAmount;
 import static utilz.HelpMethods.IsFloor;
+import static utilz.Constants.ANI_SPEED;
 import static utilz.Constants.Dialogue.*;
 
 import gamestates.Playing;
@@ -68,11 +70,26 @@ public class Crabby extends Enemy {
 				break;
 			case HIT:
 				if (aniIndex <= GetSpriteAmount(enemyType, state) - 2)
-					pushBack(pushBackDir, lvlData, 2f);
+					pushBack(pushBackDir, lvlData, 0.75f);
 				updatePushBackDrawOffset();
 				break;
 			}
 		}
 	}
-
+	
+	@Override
+	protected void updateAnimationTick() {
+		aniTick++;
+		if (aniTick >= ANI_SPEED) {
+			aniTick = 0;
+			aniIndex++;
+			if (aniIndex >= GetSpriteAmount(CRABBY, state)) {
+				aniIndex = 0;
+				switch (state) {
+					case ATTACK, HIT -> state = IDLE;
+					case DEAD -> active = false;
+				}
+			}
+		}
+	}
 }

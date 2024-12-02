@@ -74,8 +74,6 @@ FPS\--------|-------------------------------|---------------------------|
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
         
-	
-        
         //gameloop should be the last after all!
         startGameLoop();
         
@@ -95,6 +93,51 @@ FPS\--------|-------------------------------|---------------------------|
         gameThread = new Thread(this);
         gameThread.start();
     }
+    
+    @Override 
+    //Sau khi implements Runnable, ta override hàm run để tạo luồng
+    public void run() {
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        double timePerUpdate = 1000000000.0 / UPS_SET;
+
+        long previousTime = System.nanoTime();
+
+        int frames = 0;
+        int updates = 0;
+        long lastCheck = System.currentTimeMillis();
+
+        double deltaU = 0;
+        double deltaF = 0;
+
+        while (true) {
+            long currentTime = System.nanoTime();
+            deltaU += (currentTime - previousTime) / timePerUpdate;
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
+
+            if (deltaU >= 1) {
+                update();
+                updates++;
+                deltaU--;
+            }
+//            
+            if (deltaF >= 1) {
+            	gamePanel.repaint(); //repaint được do có extends từ JPanel
+                frames++;
+                deltaF--;
+            }
+
+            if (SHOW_FPS_UPS) {
+                if (System.currentTimeMillis() - lastCheck >= 1000) {
+                    lastCheck = System.currentTimeMillis();
+                    System.out.println("FPS: " + frames + " | UPS: " + updates);
+                    frames = 0;
+                    updates = 0;
+                }
+            }
+        }
+    }
+    //Cần tách riêng biệt luồng update logic và render frame -> tránh trường hợp sai số hệ thống làm FPS drop
 
     public void update() {
         switch (Gamestate.state) {
@@ -115,57 +158,6 @@ FPS\--------|-------------------------------|---------------------------|
             case PLAYING -> playing.draw(g);
             case OPTIONS -> gameOptions.draw(g);
             case CREDITS -> credits.draw(g);
-        }
-    }
-    
-    @Override
-    public void run() {
-        double timePerFrame = 1000000000.0 / FPS_SET;
-        double timePerUpdate = 1000000000.0 / UPS_SET;
-
-        long previousTime = System.nanoTime();
-
-        int frames = 0;
-        int updates = 0;
-        long lastCheck = System.currentTimeMillis();
-
-        double deltaU = 0;
-        double deltaF = 0;
-
-        while (true) {
-
-            long currentTime = System.nanoTime();
-
-            deltaU += (currentTime - previousTime) / timePerUpdate;
-            deltaF += (currentTime - previousTime) / timePerFrame;
-            previousTime = currentTime;
-
-            if (deltaU >= 1) {
-
-                update();
-                updates++;
-                deltaU--;
-
-            }
-
-            if (deltaF >= 1) {
-
-                gamePanel.repaint(); //repaint được do có extends từ JPanel
-                frames++;
-                deltaF--;
-
-            }
-
-            if (SHOW_FPS_UPS)
-                if (System.currentTimeMillis() - lastCheck >= 1000) {
-
-                    lastCheck = System.currentTimeMillis();
-                    System.out.println("FPS: " + frames + " | UPS: " + updates);
-                    frames = 0;
-                    updates = 0;
-
-                }
-
         }
     }
 

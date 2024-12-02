@@ -180,11 +180,14 @@ public class ObjectManager {
 				if (c.getTileY() == player.getTileY())
 					if (isPlayerInRange(c, player))
 						if (isPlayerInfrontOfCannon(c, player))
-							if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY()))
+							if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY())) {
 								c.setAnimation(true);
-				c.update();
-			if (c.getAniIndex() == 4 && c.getAniTick() == 0)
+							}
+								
+			c.update();
+			if (c.getAniIndex() == 4 && c.getAniTick() == 0) {
 				shootCannon(c);
+			}
 		}
 	}
 

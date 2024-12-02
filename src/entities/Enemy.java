@@ -187,40 +187,8 @@ public abstract class Enemy extends Entity {
 	}
 
 	//Lưu ý rằng updateAnimationTick của Player và của Enemy sẽ khác nhau
-	protected void updateAnimationTick() {
-		aniTick++;
-		if (aniTick >= ANI_SPEED) {
-			aniTick = 0;
-			aniIndex++;
-			if (aniIndex >= GetSpriteAmount(enemyType, state)) {
-				if (enemyType == CRABBY || enemyType == SHARK) {
-					aniIndex = 0;
-					
-					/*
-					 * Khi Enemy hoàn thành các animation của Attack, 
-					 * nó sẽ idle khoảng một lúc (cụ thể là đúng một loop cho animation idle)
-					 * 
-					 * Nếu Enemy được xác nhận là DEAD qua tín hiệu state == DEAD, active = false, coi như chúng ta không còn update quái vật này trong game nữa
-					 */
-					switch (state) {
-						case ATTACK, HIT -> state = IDLE;
-						case DEAD -> active = false;
-					}
-				} else if (enemyType == PINKSTAR) {
-					if (state == ATTACK)
-						aniIndex = 3;
-					else {
-						aniIndex = 0;
-						if (state == HIT) {
-							state = IDLE;
-
-						} else if (state == DEAD)
-							active = false;
-					}
-				}
-			}
-		}
-	}
+	//Các quái vật như Crabby, Shark, PinkStar sẽ Override hàm này, vì chúng có animation tick khác nhau
+	protected abstract void updateAnimationTick();
 
 	//Trường hợp kẻ địch đập vào tường thì phải quay ngược lại
 	protected void changeWalkDir() {

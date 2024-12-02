@@ -68,6 +68,8 @@ public class Constants {
 		public static final int CANNON_HEIGHT_DEFAULT = 26;
 		public static final int CANNON_WIDTH = (int) (CANNON_WIDTH_DEFAULT * Game.SCALE);
 		public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * Game.SCALE);
+		
+		public static final int ANI_SPEED_CANNON = 40;
 
 		public static int GetSpriteAmount(int object_type) {
 			switch (object_type) {

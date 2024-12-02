@@ -49,9 +49,13 @@ public abstract class Entity {
 		this.height = height;
 	}
 
+	/*
+	 * Default: speed = 0.95f
+	 * limit = -30f
+	 */
 	protected void updatePushBackDrawOffset() {
-		float speed = 0.95f;
-		float limit = -30f;
+		float speed = 0.5f;
+		float limit = -15f;
 
 		if (pushBackOffsetDir == UP) {
 			pushDrawOffset -= speed;

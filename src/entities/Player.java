@@ -180,7 +180,7 @@ public class Player extends Entity {
 
         if (state == HIT) {
             if (aniIndex <= playerCharacter.getSpriteAmount(state) - 3)
-                pushBack(pushBackDir, lvlData, 1.25f);
+                pushBack(pushBackDir, lvlData, 0.75f);
             updatePushBackDrawOffset();
         } else
             updatePos();

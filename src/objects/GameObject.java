@@ -1,6 +1,5 @@
 package objects;
 
-import static utilz.Constants.ANI_SPEED; // Import hằng số tốc độ hoạt ảnh (animation speed) từ lớp Constants
 import static utilz.Constants.ObjectConstants.*; // Import hằng số liên quan đến đối tượng từ lớp ObjectConstants
 
 import java.awt.Color; 
@@ -28,7 +27,7 @@ public class GameObject {
 	// Cập nhật tiến trình hoạt ảnh dựa trên tốc độ hoạt ảnh
 	protected void updateAnimationTick() {
 		aniTick++; // Tăng giá trị tick hoạt ảnh
-		if (aniTick >= ANI_SPEED) { // Nếu tick vượt quá tốc độ định nghĩa
+		if (aniTick >= ANI_SPEED_CANNON) { // Nếu tick vượt quá tốc độ định nghĩa
 			aniTick = 0; // Đặt lại tick
 			aniIndex++; // Chuyển sang khung hoạt ảnh tiếp theo
 			if (aniIndex >= GetSpriteAmount(objType)) { // Kiểm tra xem có vượt qua số lượng khung hình của loại đối tượng không
