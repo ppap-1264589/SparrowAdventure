@@ -67,7 +67,7 @@ public class Playing extends State implements Statemethods {
     
     private int maxLvlOffsetX;
 
-    private BufferedImage backgroundImg, bigCloud, smallCloud, shipImgs[];
+    private BufferedImage backgroundImg, bigCloud, smallCloud;
     private BufferedImage[] questionImgs, exclamationImgs;
     private ArrayList<DialogueEffect> dialogEffects = new ArrayList<>();
 
@@ -90,9 +90,9 @@ public class Playing extends State implements Statemethods {
     // you want
     // it.
 
-    private boolean drawShip = true;
-    private int shipAni, shipTick, shipDir = 1;
-    private float shipHeightDelta, shipHeightChange = 0.05f * Game.SCALE;
+//    private boolean drawShip = true;
+//    private int shipAni, shipTick, shipDir = 1;
+//    private float shipHeightDelta, shipHeightChange = 0.05f * Game.SCALE;
 
     public Playing(Game game) {
         super(game);
@@ -109,10 +109,10 @@ public class Playing extends State implements Statemethods {
         for (int i = 0; i < smallCloudsPos.length; i++)
             smallCloudsPos[i] = (int) (90 * Game.SCALE) + rnd.nextInt((int) (100 * Game.SCALE));
 
-        shipImgs = new BufferedImage[4];
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SHIP);
-        for (int i = 0; i < shipImgs.length; i++)
-            shipImgs[i] = temp.getSubimage(i * 78, 0, 78, 72);
+//        shipImgs = new BufferedImage[4];
+//        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SHIP_ATLAS);
+//        for (int i = 0; i < shipImgs.length; i++)
+//            shipImgs[i] = temp.getSubimage(i * 78, 0, 78, 72);
 
         loadDialogue();
         calcLvlOffset();
@@ -154,7 +154,6 @@ public class Playing extends State implements Statemethods {
         levelManager.loadNextLevel();
         player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
         resetAll();
-        drawShip = false;
     }
 
     private void loadStartLevel() {
@@ -212,29 +211,28 @@ public class Playing extends State implements Statemethods {
             //Do đó, cần truyền tham số levelManager.currentLevelData vào hàm update
             enemyManager.update(levelManager.getCurrentLevel().getLevelData());
             checkCloseToBorder();
-            if (drawShip)
-                updateShipAni();
+//            if (drawShip)
+//                updateShipAni();
         }
     }
 
-    private void updateShipAni() {
-        shipTick++;
-        if (shipTick >= 35) {
-            shipTick = 0;
-            shipAni++;
-            if (shipAni >= 4)
-                shipAni = 0;
-        }
-
-        shipHeightDelta += shipHeightChange * shipDir;
-        shipHeightDelta = Math.max(Math.min(10 * Game.SCALE, shipHeightDelta), 0);
-
-        if (shipHeightDelta == 0)
-            shipDir = 1;
-        else if (shipHeightDelta == 10 * Game.SCALE)
-            shipDir = -1;
-
-    }
+//    private void updateShipAni() {
+//        shipTick++;
+//        if (shipTick >= 35) {
+//            shipTick = 0;
+//            shipAni++;
+//            if (shipAni >= 4)
+//                shipAni = 0;
+//        }
+//
+//        shipHeightDelta += shipHeightChange * shipDir;
+//        shipHeightDelta = Math.max(Math.min(10 * Game.SCALE, shipHeightDelta), 0);
+//
+//        if (shipHeightDelta == 0)
+//            shipDir = 1;
+//        else if (shipHeightDelta == 10 * Game.SCALE)
+//            shipDir = -1;
+//    }
 
     private void updateDialogue() {
         for (DialogueEffect de : dialogEffects)
@@ -306,8 +304,8 @@ public class Playing extends State implements Statemethods {
         if (drawRain)
             rain.draw(g, xLvlOffset);
 
-        if (drawShip)
-            g.drawImage(shipImgs[shipAni], (int) (100 * Game.SCALE) - xLvlOffset, (int) ((288 * Game.SCALE) + shipHeightDelta), (int) (78 * Game.SCALE), (int) (72 * Game.SCALE), null);
+//        if (drawShip)
+//            g.drawImage(shipImgs[shipAni], (int) (120 * Game.SCALE) - xLvlOffset, (int) ((288 * Game.SCALE) + shipHeightDelta), (int) (78 * Game.SCALE), (int) (72 * Game.SCALE), null);
 
         //xLvlOffset là giá trị tính từ vị trí biên bên trái (của map), đến vị trí biên bên trái (đang vẽ trên màn hình)
         //Đây chính là giá trị mà các hoạt ảnh liên quan đến lvl sẽ phải chạy lùi theo
@@ -361,6 +359,8 @@ public class Playing extends State implements Statemethods {
         lvlCompleted = false;
         playerDying = false;
         drawRain = false;
+        
+//        drawShip = true; //Vẽ lại thuyền sau mỗi level
 
         setDrawRainBoolean();
 

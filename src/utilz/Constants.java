@@ -45,6 +45,7 @@ public class Constants {
 		public static final int TREE_ONE = 7;
 		public static final int TREE_TWO = 8;
 		public static final int TREE_THREE = 9;
+		public static final int SHIP = 10;
 
 		public static final int RED_POTION_VALUE = 15;
 		public static final int BLUE_POTION_VALUE = 10;
@@ -68,8 +69,12 @@ public class Constants {
 		public static final int CANNON_HEIGHT_DEFAULT = 26;
 		public static final int CANNON_WIDTH = (int) (CANNON_WIDTH_DEFAULT * Game.SCALE);
 		public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * Game.SCALE);
-		
 		public static final int ANI_SPEED_CANNON = 40;
+		
+		public static final int SHIP_WIDTH_DEFAULT = 78;
+		public static final int SHIP_HEIGHT_DEFAULT = 72;
+		public static final int SHIP_WIDTH = (int) (SHIP_WIDTH_DEFAULT * Game.SCALE);
+		public static final int SHIP_HEIGHT = (int) (SHIP_HEIGHT_DEFAULT * Game.SCALE);
 
 		public static int GetSpriteAmount(int object_type) {
 			switch (object_type) {

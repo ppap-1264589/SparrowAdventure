@@ -14,6 +14,7 @@ import objects.Cannon;
 import objects.GameContainer;
 import objects.Grass;
 import objects.Potion;
+import objects.Ship;
 import objects.Spike;
 
 import static utilz.Constants.EnemyConstants.*;
@@ -34,6 +35,7 @@ public class Level {
 	private ArrayList<Cannon> cannons = new ArrayList<>();
 	private ArrayList<BackgroundTree> trees = new ArrayList<>();
 	private ArrayList<Grass> grass = new ArrayList<>();
+	private ArrayList<Ship> ships = new ArrayList<>();
 
 	private int lvlTilesWide;
 	private int maxTilesOffset;
@@ -114,11 +116,12 @@ public class Level {
 	
 	private void loadObjects(int blueValue, int x, int y) {
 		switch (blueValue) {
-		case RED_POTION, BLUE_POTION -> potions.add(new Potion(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
-		case BOX, BARREL -> containers.add(new GameContainer(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
-		case SPIKE -> spikes.add(new Spike(x * Game.TILES_SIZE, y * Game.TILES_SIZE, SPIKE));
-		case CANNON_LEFT, CANNON_RIGHT -> cannons.add(new Cannon(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
-		case TREE_ONE, TREE_TWO, TREE_THREE -> trees.add(new BackgroundTree(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
+			case RED_POTION, BLUE_POTION -> potions.add(new Potion(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
+			case BOX, BARREL -> containers.add(new GameContainer(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
+			case SPIKE -> spikes.add(new Spike(x * Game.TILES_SIZE, y * Game.TILES_SIZE, SPIKE));
+			case CANNON_LEFT, CANNON_RIGHT -> cannons.add(new Cannon(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
+			case TREE_ONE, TREE_TWO, TREE_THREE -> trees.add(new BackgroundTree(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
+			case SHIP -> ships.add(new Ship(x * Game.TILES_SIZE, y * Game.TILES_SIZE, blueValue));
 		}
 	}
 
@@ -193,4 +196,7 @@ public class Level {
 		return grass;
 	}
 
+	public ArrayList<Ship> getShips() {
+		return ships;
+	}
 }
