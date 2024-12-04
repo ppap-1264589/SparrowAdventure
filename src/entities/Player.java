@@ -581,6 +581,7 @@ public class Player extends Entity {
         powerAttackActive = false;
         powerAttackTick = 0;
         powerValue = powerMaxValue;
+        jumpCnt = 0;
 
         /*
          * Dù nhân vật có thể DEAD ở vị trí nào trên map trước đó đi chăng nữa, vị trí đứng của nhân vật ban đầu sau khi gameover

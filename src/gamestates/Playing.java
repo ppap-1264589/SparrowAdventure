@@ -211,28 +211,9 @@ public class Playing extends State implements Statemethods {
             //Do đó, cần truyền tham số levelManager.currentLevelData vào hàm update
             enemyManager.update(levelManager.getCurrentLevel().getLevelData());
             checkCloseToBorder();
-//            if (drawShip)
-//                updateShipAni();
         }
     }
 
-//    private void updateShipAni() {
-//        shipTick++;
-//        if (shipTick >= 35) {
-//            shipTick = 0;
-//            shipAni++;
-//            if (shipAni >= 4)
-//                shipAni = 0;
-//        }
-//
-//        shipHeightDelta += shipHeightChange * shipDir;
-//        shipHeightDelta = Math.max(Math.min(10 * Game.SCALE, shipHeightDelta), 0);
-//
-//        if (shipHeightDelta == 0)
-//            shipDir = 1;
-//        else if (shipHeightDelta == 10 * Game.SCALE)
-//            shipDir = -1;
-//    }
 
     private void updateDialogue() {
         for (DialogueEffect de : dialogEffects)
@@ -304,9 +285,6 @@ public class Playing extends State implements Statemethods {
         if (drawRain)
             rain.draw(g, xLvlOffset);
 
-//        if (drawShip)
-//            g.drawImage(shipImgs[shipAni], (int) (120 * Game.SCALE) - xLvlOffset, (int) ((288 * Game.SCALE) + shipHeightDelta), (int) (78 * Game.SCALE), (int) (72 * Game.SCALE), null);
-
         //xLvlOffset là giá trị tính từ vị trí biên bên trái (của map), đến vị trí biên bên trái (đang vẽ trên màn hình)
         //Đây chính là giá trị mà các hoạt ảnh liên quan đến lvl sẽ phải chạy lùi theo
         levelManager.draw(g, xLvlOffset);
@@ -360,8 +338,6 @@ public class Playing extends State implements Statemethods {
         playerDying = false;
         drawRain = false;
         
-//        drawShip = true; //Vẽ lại thuyền sau mỗi level
-
         setDrawRainBoolean();
 
         player.resetAll();

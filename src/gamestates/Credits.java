@@ -30,10 +30,10 @@ public class Credits extends State implements Statemethods {
     //Nạp các Entities vào Credits
     private void loadEntities() {
         entitiesList = new ArrayList<>();
-        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_PIRATE), 5, 64, 40), (int) (Game.GAME_WIDTH * 0.05), (int) (Game.GAME_HEIGHT * 0.8)));
-        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 72, 32), (int) (Game.GAME_WIDTH * 0.15), (int) (Game.GAME_HEIGHT * 0.75)));
-        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.PINKSTAR_ATLAS), 8, 34, 30), (int) (Game.GAME_WIDTH * 0.7), (int) (Game.GAME_HEIGHT * 0.75)));
-        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.SHARK_ATLAS), 8, 34, 30), (int) (Game.GAME_WIDTH * 0.8), (int) (Game.GAME_HEIGHT * 0.8)));
+        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_PIRATE), 5, 64, 40), (int) (Game.GAME_WIDTH * 0.02), (int) (Game.GAME_HEIGHT * 0.8)));
+        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_LABUBU), 5, 64, 40), (int) (Game.GAME_WIDTH * 0.15), (int) (Game.GAME_HEIGHT * 0.75)));
+        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_CAPY), 5, 64, 40), (int) (Game.GAME_WIDTH * 0.65), (int) (Game.GAME_HEIGHT * 0.75)));
+        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 72, 32), (int) (Game.GAME_WIDTH * 0.8), (int) (Game.GAME_HEIGHT * 0.8)));
     }
 
     private BufferedImage[] getIdleAni(BufferedImage atlas, int spritesAmount, int width, int height) {
@@ -45,7 +45,7 @@ public class Credits extends State implements Statemethods {
 
     @Override
     public void update() {
-        bgYFloat -= 0.2f;
+        bgYFloat -= 0.3f;
         for (ShowEntity se : entitiesList)
             se.update();
     }
@@ -75,8 +75,7 @@ public class Credits extends State implements Statemethods {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
+    	// TODO Auto-generated method stub
     }
 
     @Override
