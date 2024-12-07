@@ -33,7 +33,7 @@ public class Credits extends State implements Statemethods {
     public void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
         g.drawImage(treasureImg, 0, 0, Game.GAME_WIDTH/2, Game.GAME_HEIGHT, null);
-        g.drawImage(creditsImg, bgX, (int) (bgY + bgYFloat), (int)(bgW + Game.GAME_WIDTH/4 - 20), bgH, null);
+        g.drawImage(creditsImg, bgX + Game.GAME_WIDTH/8, (int) (bgY + bgYFloat), (int)(bgW), bgH, null);
     }
 
     @Override
