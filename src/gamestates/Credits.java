@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import main.Game;
 import utilz.LoadSave;
@@ -13,8 +12,6 @@ public class Credits extends State implements Statemethods {
     private BufferedImage backgroundImg, creditsImg, treasureImg;
     private int bgX, bgY, bgW, bgH;
     private float bgYFloat;
-
-    private ArrayList<ShowEntity> entitiesList;
 
     public Credits(Game game) {
         super(game);
@@ -25,30 +22,11 @@ public class Credits extends State implements Statemethods {
         bgH = (int) (creditsImg.getHeight() * Game.SCALE);
         bgX = Game.GAME_WIDTH / 2;
         bgY = Game.GAME_HEIGHT;
-        loadEntities();
     }
-
-    //Nạp các Entities vào Credits
-    private void loadEntities() {
-        entitiesList = new ArrayList<>();
-        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_PIRATE), 5, 64, 40), (int) (Game.GAME_WIDTH * 0.02), (int) (Game.GAME_HEIGHT * 0.8)));
-        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_LABUBU), 5, 64, 40), (int) (Game.GAME_WIDTH * 0.15), (int) (Game.GAME_HEIGHT * 0.75)));
-        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_CAPY), 5, 64, 40), (int) (Game.GAME_WIDTH * 0.65), (int) (Game.GAME_HEIGHT * 0.75)));
-        entitiesList.add(new ShowEntity(getIdleAni(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 72, 32), (int) (Game.GAME_WIDTH * 0.8), (int) (Game.GAME_HEIGHT * 0.8)));
-    }
-
-    private BufferedImage[] getIdleAni(BufferedImage atlas, int spritesAmount, int width, int height) {
-        BufferedImage[] arr = new BufferedImage[spritesAmount];
-        for (int i = 0; i < spritesAmount; i++)
-            arr[i] = atlas.getSubimage(width * i, 0, width, height);
-        return arr;
-    }
-
+    
     @Override
     public void update() {
-        bgYFloat -= 0.3f;
-        for (ShowEntity se : entitiesList)
-            se.update();
+    	bgYFloat -= 0.2f;
     }
 
     @Override
@@ -56,9 +34,6 @@ public class Credits extends State implements Statemethods {
         g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
         g.drawImage(treasureImg, 0, 0, Game.GAME_WIDTH/2, Game.GAME_HEIGHT, null);
         g.drawImage(creditsImg, bgX, (int) (bgY + bgYFloat), (int)(bgW + Game.GAME_WIDTH/4 - 20), bgH, null);
-
-        for (ShowEntity se : entitiesList)
-            se.draw(g);
     }
 
     @Override
@@ -93,31 +68,4 @@ public class Credits extends State implements Statemethods {
     @Override
     public void keyPressed(KeyEvent e) {
     }
-
-    private class ShowEntity {
-        private BufferedImage[] idleAnimation;
-        private int x, y, aniIndex, aniTick;
-
-        public ShowEntity(BufferedImage[] idleAnimation, int x, int y) {
-            this.idleAnimation = idleAnimation;
-            this.x = x;
-            this.y = y;
-        }
-
-        public void draw(Graphics g) {
-            g.drawImage(idleAnimation[aniIndex], x, y, (int) (idleAnimation[aniIndex].getWidth() * 4), (int) (idleAnimation[aniIndex].getHeight() * 4), null);
-        }
-
-        public void update() {
-            aniTick++;
-            if (aniTick >= 25) {
-                aniTick = 0;
-                aniIndex++;
-                if (aniIndex >= idleAnimation.length)
-                    aniIndex = 0;
-            }
-
-        }
-    }
-
 }

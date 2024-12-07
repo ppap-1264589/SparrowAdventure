@@ -93,7 +93,7 @@ public class LoadSave {
         }
 
         File[] files = file.listFiles();
-        File[] filesSorted = new File[files.length];
+        File[] filesSorted = new File[1];
 
 //        for (int i = 0; i < filesSorted.length; i++)
 //            for (int j = 0; j < files.length; j++) {
@@ -101,11 +101,11 @@ public class LoadSave {
 //                    filesSorted[i] = files[j];
 //
 //            }
-        filesSorted[0] = files[4];
-        filesSorted[1] = files[3];
-        filesSorted[2] = files[2];
-        filesSorted[3] = files[1];
-        filesSorted[4] = files[0];
+        filesSorted[0] = files[0];
+//        filesSorted[1] = files[3];
+//        filesSorted[2] = files[2];
+//        filesSorted[3] = files[1];
+//        filesSorted[4] = files[0];
         
         BufferedImage[] imgs = new BufferedImage[filesSorted.length];
 
