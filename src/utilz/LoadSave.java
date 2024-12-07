@@ -51,6 +51,7 @@ public class LoadSave {
     public static final String WATER_TOP = "water_atlas_animation.png";
     public static final String WATER_BOTTOM = "water.png";
     public static final String SHIP_ATLAS = "ship.png";
+    public static final String TREASURE_BG = "treasure_background.png";
 
 
     public static BufferedImage[][] loadAnimations(PlayerCharacter pc) {
@@ -101,11 +102,11 @@ public class LoadSave {
 //                    filesSorted[i] = files[j];
 //
 //            }
-        filesSorted[0] = files[3];
-        filesSorted[1] = files[1];
+        filesSorted[0] = files[4];
+        filesSorted[1] = files[3];
         filesSorted[2] = files[2];
-        filesSorted[3] = files[0];
-        filesSorted[4] = files[4];
+        filesSorted[3] = files[1];
+        filesSorted[4] = files[0];
         
         BufferedImage[] imgs = new BufferedImage[filesSorted.length];
 

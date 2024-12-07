@@ -112,7 +112,7 @@ public class Player extends Entity {
         this.playerCharacter = playerCharacter;
         this.playing = playing;
         this.state = IDLE;
-        this.maxHealth = 1000000000;
+        this.maxHealth = 100;
         this.currentHealth = maxHealth;
         this.walkSpeed = Game.SCALE * 1.0f;
         this.jumpCnt = 0;

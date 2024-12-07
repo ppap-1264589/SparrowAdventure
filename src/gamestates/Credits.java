@@ -10,7 +10,7 @@ import main.Game;
 import utilz.LoadSave;
 
 public class Credits extends State implements Statemethods {
-    private BufferedImage backgroundImg, creditsImg;
+    private BufferedImage backgroundImg, creditsImg, treasureImg;
     private int bgX, bgY, bgW, bgH;
     private float bgYFloat;
 
@@ -20,9 +20,10 @@ public class Credits extends State implements Statemethods {
         super(game);
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMG);
         creditsImg = LoadSave.GetSpriteAtlas(LoadSave.CREDITS);
+        treasureImg = LoadSave.GetSpriteAtlas(LoadSave.TREASURE_BG);
         bgW = (int) (creditsImg.getWidth() * Game.SCALE);
         bgH = (int) (creditsImg.getHeight() * Game.SCALE);
-        bgX = Game.GAME_WIDTH / 2 - bgW / 2;
+        bgX = Game.GAME_WIDTH / 2;
         bgY = Game.GAME_HEIGHT;
         loadEntities();
     }
@@ -53,7 +54,8 @@ public class Credits extends State implements Statemethods {
     @Override
     public void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
-        g.drawImage(creditsImg, bgX, (int) (bgY + bgYFloat), bgW, bgH, null);
+        g.drawImage(treasureImg, 0, 0, Game.GAME_WIDTH/2, Game.GAME_HEIGHT, null);
+        g.drawImage(creditsImg, bgX, (int) (bgY + bgYFloat), (int)(bgW + Game.GAME_WIDTH/4 - 20), bgH, null);
 
         for (ShowEntity se : entitiesList)
             se.draw(g);

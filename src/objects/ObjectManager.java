@@ -59,12 +59,6 @@ public class ObjectManager {
 				}
 			}
 	}
-	
-	public void checkObjectShipTouched(Player p) {
-		for (Ship s : currentLevel.getShips()) // Duyệt qua danh sách các con thuyền
-			if (s.getHitbox().intersects(p.getHitbox())) // Nếu người chơi chạm vào hitbox của thuyền
-				p.kill(); // Giết người chơi
-	}
 
 	// Áp dụng hiệu ứng của vật phẩm lên người chơi dựa trên loại vật phẩm
 	public void applyEffectToPlayer(Potion p) {
@@ -173,7 +167,7 @@ public class ObjectManager {
 			if (p.isActive()) { // Nếu đạn pháo đang hoạt động
 				p.updatePos(); // Cập nhật vị trí đạn
 				if (p.getHitbox().intersects(player.getHitbox())) { // Nếu đạn chạm vào người chơi
-					player.changeHealth(-25); // Gây sát thương cho người chơi
+					player.changeHealth(PROJECTILES_DAMAGE); // Gây sát thương cho người chơi
 					p.setActive(false); // Vô hiệu hóa đạn
 				} else if (IsProjectileHittingLevel(p, lvlData)) // Nếu đạn chạm vào địa hình
 					p.setActive(false); // Vô hiệu hóa đạn
@@ -322,8 +316,6 @@ public class ObjectManager {
 	    
 	    
 	}
-	
-//	g.drawImage(shipImgs[shipAni], (int) (120 * Game.SCALE) - xLvlOffset, (int) ((288 * Game.SCALE) + shipHeightDelta), (int) (78 * Game.SCALE), (int) (72 * Game.SCALE), null);
 
 	
 	public void resetAllObjects() {
