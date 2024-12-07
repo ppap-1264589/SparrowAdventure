@@ -123,7 +123,7 @@ public class GameCompletedOverlay {
             if (credit.isMousePressed()) { // Nếu nút đã được nhấn
                 playing.resetAll(); // Đặt lại trạng thái chơi
                 playing.resetGameCompleted(); // Đặt lại trạng thái hoàn thành trò chơi
-                playing.setGamestate(Gamestate.CREDITS); // Chuyển đến trạng thái tín dụng
+                playing.setGamestate(Gamestate.CREDITS); // Chuyển đến trạng thái Credit
             }
         }
 

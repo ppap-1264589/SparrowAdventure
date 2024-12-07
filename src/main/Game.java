@@ -35,6 +35,7 @@ FPS\--------|-------------------------------|---------------------------|
     private Playing playing;
     private Menu menu;
     private Credits credits;
+    private Precredits precredits;
     private PlayerSelection playerSelection;
     private GameOptions gameOptions;
     private AudioOptions audioOptions;
@@ -86,6 +87,7 @@ FPS\--------|-------------------------------|---------------------------|
         playing = new Playing(this);
         playerSelection = new PlayerSelection(this);
         credits = new Credits(this);
+        precredits = new Precredits(this);
         gameOptions = new GameOptions(this);
     }
 
@@ -146,6 +148,7 @@ FPS\--------|-------------------------------|---------------------------|
             case PLAYING -> playing.update();
             case OPTIONS -> gameOptions.update();
             case CREDITS -> credits.update();
+            case PRE_CREDITS -> precredits.update(); 
             case QUIT -> System.exit(0);
         }
     }
@@ -158,6 +161,7 @@ FPS\--------|-------------------------------|---------------------------|
             case PLAYING -> playing.draw(g);
             case OPTIONS -> gameOptions.draw(g);
             case CREDITS -> credits.draw(g);
+            case PRE_CREDITS -> precredits.draw(g); 
         }
     }
 

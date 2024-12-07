@@ -38,7 +38,6 @@ public class LoadSave {
     public static final String CANNON_BALL = "ball.png";
     public static final String DEATH_SCREEN = "death_screen.png";
     public static final String OPTIONS_MENU = "options_background.png";
-    public static final String PINKSTAR_ATLAS = "pinkstar_atlas.png";
     public static final String QUESTION_ATLAS = "question_atlas.png";
     public static final String EXCLAMATION_ATLAS = "exclamation_atlas.png";
     public static final String SHARK_ATLAS = "shark_atlas.png";
