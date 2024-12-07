@@ -81,7 +81,7 @@ public class Crabby extends Enemy {
 			if (aniIndex >= GetSpriteAmount(CRABBY, state)) {
 				aniIndex = 0;
 				switch (state) {
-					case ATTACK, HIT -> state = IDLE;
+					case ATTACK, HIT -> newState(IDLE);
 					case DEAD -> active = false;
 				}
 			}

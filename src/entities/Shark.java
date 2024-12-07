@@ -74,7 +74,7 @@ public class Shark extends Enemy {
 			if (aniIndex >= GetSpriteAmount(SHARK, state)) {
 				aniIndex = 0;
 				switch (state) {
-					case ATTACK, HIT -> state = IDLE;
+					case ATTACK, HIT -> newState(IDLE);
 					case DEAD -> active = false;
 				}
 			}
