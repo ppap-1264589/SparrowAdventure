@@ -52,7 +52,6 @@ public class LoadSave {
     public static final String SHIP_ATLAS = "ship.png";
     public static final String TREASURE_BG = "treasure_background.png";
 
-
     public static BufferedImage[][] loadAnimations(PlayerCharacter pc) {
         BufferedImage img = LoadSave.GetSpriteAtlas(pc.playerAtlas);
         BufferedImage[][] animations = new BufferedImage[pc.rowA][pc.colA];
