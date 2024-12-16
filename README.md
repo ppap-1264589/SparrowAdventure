@@ -25,8 +25,8 @@
 
 ## Giới thiệu
 
-**"Sparrow Adventure"** là một trò chơi nhập vai (RPG) được phát triển như một bài tập lớn môn Lập trình Hướng đối tượng (OOP) tại Đại học Bách khoa Hà Nội. Người chơi sẽ hóa thân thành Captain Jack Sparrow để khám phá các vùng đất, chiến đấu với kẻ thù và tìm kiếm kho báu Aztec.
-
+ **Sparrow Adventure** là một game RPG được phát triển trong bài tập lớn OOP của nhóm **06** thuộc lớp của thầy Trần Nhật Hóa, ngôn ngữ chính sử dụng Java. Trong game, người chơi điều khiển Captain Jack Sparrow để khám phá các vùng đất, chiến đấu với kẻ thù và tìm kiếm kho báu Aztec. Game cung cấp các tính năng như di chuyển, tấn công, thu thập vật phẩm, quản lý kho đồ, và hệ thống tính điểm dựa trên số lượng kẻ thù bị hạ và kho báu thu thập được.
+ 
 ### Điểm nổi bật:
 - Hệ thống gameplay đa dạng: di chuyển, tấn công, nhảy, và thu thập vật phẩm.
 - Hệ thống điểm số dựa trên số lượng kẻ địch bị tiêu diệt và kho báu thu thập.
